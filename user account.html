@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | Crown Watch</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #0077ff;
+            --gold: #d4af37;
+            --dark: #001f3f;
+            --light-bg: #f8fafc;
+            --sidebar-bg: #f8fafc;
+            --sidebar-border: #eee;
+            --card-bg: #f8fafc;
+            --danger: #f44336;
+            --danger-dark: #b71c1c;
+            --footer-bg: #001f3f;
+            --footer-text: #fff;
+            --footer-link: #ccc;
+            --footer-link-hover: #d4af37;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: var(--light-bg);
+            color: #222;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        body.dark-mode {
+            background: #0c1c2c;
+            color: #fff;
+        }
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(0, 31, 63, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s ease;
+        }
+        body.dark-mode .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .nav-container { display: flex; align-items: center; gap: 16px; }
+        .logo img { width: 48px; height: 48px; border-radius: 8px; object-fit: contain; box-shadow: 0 2px 8px #0002; }
+        .logo span { font-size: 1.8rem; font-weight: bold; color: var(--gold); font-family: 'Cursive', cursive; margin-left: 10px; }
+        .nav-links { display: flex; gap: 28px; align-items: center; }
+        .nav-links ul { display: flex; gap: 2em; list-style: none; }
+        .nav-links ul li { position: relative; }
+        .nav-links ul li a { color: #fff; text-decoration: none; font-weight: 500; font-size: 1.1rem; padding: 8px 5px; transition: all 0.3s; border-radius: 4px; }
+        .nav-links ul li a:hover, .nav-links ul li a.active { background: var(--primary); color: #fff; }
+        .dropdown-menu { display: none; position: absolute; left: 0; top: 100%; background: #182c45; min-width: 150px; border: 1px solid #444; z-index: 10; flex-direction: column; }
+        .dropdown.open .dropdown-menu, .nav-links ul li:hover .dropdown-menu { display: flex; }
+        .dropdown-menu li a { color: #fff; padding: 10px; border-bottom: 1px solid #333; }
+        .dropdown-menu li a:hover { background: var(--primary); color: #fff; }
+        .nav-icons { display: flex; gap: 20px; align-items: center; }
+        .phone { color: #ff77a9; font-size: 14px; }
+        .contact-btn { background: #3c1ed9; color: #fff; font-weight: bold; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; }
+        .theme-toggle { background: transparent; border: 2px solid var(--gold); color: var(--gold); border-radius: 50%; width: 40px; height: 40px; font-size: 1.2rem; cursor: pointer; margin-left: 15px; transition: all 0.3s; }
+        .theme-toggle:hover { background: var(--gold); color: var(--dark); transform: rotate(30deg); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+        .hamburger span { width: 28px; height: 3px; background: var(--gold); border-radius: 2px; transition: all 0.3s; }
+        .nav-overlay { display: none; }
+        @media (max-width: 900px) {
+            .nav-links ul { display: none; flex-direction: column; background: #0e1e35; position: absolute; top: 60px; left: 0; width: 100vw; box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+            .nav-links.nav-active ul { display: flex; }
+            .hamburger { display: flex; }
+            .nav-overlay { display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.3); z-index: 999; }
+        }
+        /* Dashboard Layout */
+        .dashboard-main { display: flex; max-width: 1100px; margin: 90px auto 2em auto; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); min-height: 600px; }
+        .dashboard-sidebar { width: 250px; background: var(--sidebar-bg); border-right: 1px solid var(--sidebar-border); border-radius: 16px 0 0 16px; padding: 2em 1em; display: flex; flex-direction: column; align-items: center; }
+        .user-profile { text-align: center; margin-bottom: 2em; }
+        .user-profile img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 0.7em; object-fit: cover; }
+        .user-profile h3 { margin: 0.2em 0 0.1em 0; font-size: 1.15em; font-weight: 700; }
+        .user-profile span { color: #888; font-size: 0.98em; }
+        .dashboard-menu { list-style: none; padding: 0; margin: 0; width: 100%; }
+        .dashboard-menu li { padding: 0.9em 1em; margin-bottom: 0.3em; border-radius: 6px; font-size: 1.08em; color: #222; cursor: pointer; display: flex; align-items: center; gap: 0.7em; transition: background 0.2s, color 0.2s; }
+        .dashboard-menu li.active, .dashboard-menu li:hover { background: var(--primary); color: #fff; }
+        .dashboard-menu li.logout { color: var(--danger); margin-top: 2em; }
+        .dashboard-content { flex: 1; padding: 2.5em 2em 2em 2em; min-width: 0; }
+        .dashboard-section { display: none; animation: fadeIn 0.5s; }
+        .dashboard-section.active { display: block; }
+        .dashboard-section h2 { font-size: 1.4em; font-weight: 700; margin-bottom: 1.2em; }
+        .dashboard-cards { display: flex; gap: 2em; margin-bottom: 2em; flex-wrap: wrap; }
+        .dashboard-card { background: var(--card-bg); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1.2em 1.5em; display: flex; align-items: center; gap: 1em; min-width: 140px; }
+        .dashboard-card i { font-size: 2em; color: var(--primary); }
+        .card-number { font-size: 1.3em; font-weight: 700; color: #222; display: block; }
+        .dashboard-quicklinks { display: flex; gap: 1.2em; margin-bottom: 1.5em; }
+        .dashboard-quicklinks a { background: #222; color: #fff; border-radius: 4px; padding: 0.6em 1.2em; text-decoration: none; font-weight: 600; font-size: 1em; display: flex; align-items: center; gap: 0.5em; transition: background 0.2s; }
+        .dashboard-quicklinks a:hover { background: var(--primary); }
+        .orders-table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+        .orders-table th, .orders-table td { padding: 0.8em 1em; border-bottom: 1px solid #eee; text-align: left; }
+        .orders-table th { background: var(--card-bg); color: #555; }
+        .order-status { padding: 0.3em 1em; border-radius: 4px; font-size: 0.98em; font-weight: 600; }
+        .order-status.delivered { background: #e0f7e9; color: #27ae60; }
+        .order-status.shipped { background: #e3f2fd; color: var(--primary); }
+        .order-status.processing { background: #fff3e0; color: #f7b731; }
+        .order-details-btn { background: #222; color: #fff; border: none; padding: 0.4em 1em; border-radius: 4px; font-size: 1em; cursor: pointer; transition: background 0.2s; }
+        .order-details-btn:hover { background: var(--primary); }
+        .wishlist-grid { display: flex; gap: 2em; flex-wrap: wrap; }
+        .wishlist-card { background: var(--card-bg); border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); padding: 1em 1.2em; text-align: center; width: 180px; margin-bottom: 1em; display: flex; flex-direction: column; align-items: center; }
+        .wishlist-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-bottom: 0.7em; }
+        .wishlist-card h4 { margin: 0.3em 0 0.1em 0; font-size: 1.08em; font-weight: 700; }
+        .wishlist-price { color: #222; font-size: 1em; font-weight: 600; margin-bottom: 0.7em; }
+        .wishlist-remove-btn { background: var(--danger); color: #fff; border: none; padding: 0.4em 1em; border-radius: 4px; font-size: 1em; cursor: pointer; transition: background 0.2s; }
+        .wishlist-remove-btn:hover { background: var(--danger-dark); }
+        .profile-row { display: flex; flex-direction: column; gap: 0.3em; margin-bottom: 1em; }
+        .profile-row label { font-size: 1em; color: #555; }
+        .profile-row input[type="text"], .profile-row input[type="email"], .profile-row input[type="password"] { padding: 0.7em; border: 1px solid #ddd; border-radius: 4px; font-size: 1em; }
+        .dashboard-btn { background: #222; color: #fff; border: none; padding: 0.8em 0; border-radius: 4px; font-size: 1.1em; cursor: pointer; margin-top: 0.5em; transition: background 0.2s; }
+        .dashboard-btn:hover { background: var(--primary); }
+        .address-list { list-style: none; padding: 0; margin-bottom: 1em; }
+        .address-list li { background: var(--card-bg); border-radius: 6px; padding: 0.7em 1em; margin-bottom: 0.5em; display: flex; justify-content: space-between; align-items: center; }
+        .address-remove-btn { background: var(--danger); color: #fff; border: none; padding: 0.3em 0.7em; border-radius: 4px; font-size: 1em; cursor: pointer; transition: background 0.2s; }
+        .address-remove-btn:hover { background: var(--danger-dark); }
+        /* Footer */
+        .footer { background: var(--footer-bg); color: var(--footer-text); padding: 60px 20px 30px; border-top: 3px solid var(--gold); margin-top: auto; }
+        .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; gap: 30px; }
+        .footer-column { flex: 1; min-width: 220px; margin-bottom: 30px; }
+        .footer-column h3 { font-size: 1.4rem; margin-bottom: 20px; color: var(--gold); position: relative; padding-bottom: 10px; }
+        .footer-column h3::after { content: ''; position: absolute; bottom: 0; left: 0; width: 50px; height: 2px; background: var(--gold); }
+        .footer-column p { line-height: 1.6; margin-bottom: 20px; color: #ccc; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: var(--footer-link); text-decoration: none; transition: all 0.3s; display: flex; align-items: center; }
+        .footer-links a i { margin-right: 10px; color: var(--gold); width: 20px; }
+        .footer-links a:hover { color: var(--footer-link-hover); transform: translateX(5px); }
+        .footer-social { display: flex; gap: 15px; margin-top: 20px; }
+        .image-social { display: flex; gap: 10px; margin-top: 15px; }
+        .image-social a { display: inline-block; width: 35px; height: 35px; border-radius: 50%; overflow: hidden; transition: all 0.3s; }
+        .image-social a:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3); }
+        .image-social img { width: 100%; height: 100%; object-fit: cover; }
+        .footer-map-hours { display: flex; gap: 2em; justify-content: center; align-items: flex-start; margin: 2em 0; flex-wrap: wrap; }
+        .footer-map, .footer-hours { background: #23272b; padding: 1em; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.07); color: #fff; min-width: 220px; }
+        .footer-map iframe { width: 100%; height: 150px; border: none; }
+        .footer-hours ul { list-style: none; padding: 0; margin: 0; }
+        .footer-hours li { margin-bottom: 0.5em; font-size: 1em; color: #ccc; }
+        .footer-hours li i { color: var(--gold); }
+        .footer-map h4, .footer-hours h4 { color: var(--gold); }
+        .country-selector { margin-top: 20px; padding: 10px 15px; background: rgba(212, 175, 55, 0.1); border: 1px solid var(--gold); border-radius: 5px; color: var(--gold); display: inline-block; transition: all 0.3s; }
+        .country-selector:hover { background: var(--gold); color: var(--dark); cursor: pointer; }
+        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: #aaa; font-size: 0.9rem; max-width: 1200px; margin: 50px auto 0; }
+        .footer-bottom a { color: var(--gold); text-decoration: none; transition: all 0.3s; }
+        .footer-bottom a:hover { text-decoration: underline; }
+        .footer-policies { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; margin-top: 30px; }
+        .footer-policies a { color: #aaa; text-decoration: none; transition: all 0.3s; }
+        .footer-policies a:hover { color: var(--gold); }
+        @media (max-width: 900px) {
+            .dashboard-main { flex-direction: column; padding: 1em; }
+            .dashboard-sidebar { width: 100%; border-radius: 16px 16px 0 0; border-right: none; border-bottom: 1px solid var(--sidebar-border); flex-direction: row; justify-content: flex-start; gap: 2em; padding: 1em; }
+            .dashboard-content { padding: 1em; }
+            .dashboard-cards, .wishlist-grid { flex-direction: column; gap: 1em; }
+            .footer-map-hours { flex-direction: column; gap: 1em; align-items: stretch; }
+        }
+        @media (max-width: 768px) {
+            .footer-content { flex-direction: column; gap: 40px; }
+            .footer-column { min-width: 100%; }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+    <!-- Fixed Navbar -->
+    <header class="navbar" role="banner">
+        <div class="nav-container">
+            <div class="logo">
+                <img src="../images/a.jpg" alt="Crown Watch Logo" />
+                <span>☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</span>
+            </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu"><span></span><span></span><span></span></button>
+            <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+                <ul>
+                    <li><a href="../Output/index.html">Home</a></li>
+                    <li><a href="../Main/shop.html">Shop</a></li>
+                    <li><a href="../Main/blog.html">Events</a></li>
+                    <li><a href="../Main/contact.html">Services</a></li>
+                    <li><a href="../Main/faq.html">Pricing</a></li>
+                    <li class="dropdown" id="companyDropdown">
+                        <a href="#" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">Company ▼</a>
+                        <ul class="dropdown-menu">
+                           
+                        </ul>
+                    </li>
+                </ul>
+                <div class="nav-icons">
+                    <span class="phone">📞 +880 1715881701</span>
+                    <a href="#" class="search-icon" aria-label="Search">🔍</a>
+                    <a href="#" class="cart-icon" aria-label="Cart">🛒</a>
+                    <a href="#" class="user-icon" aria-label="User">👤</a>
+                    <a href="#" class="contact-btn">Contact Us</a>
+                    <button class="theme-toggle" id="toggleDark" title="Toggle Theme" aria-label="Toggle dark mode">🌓</button>
+                </div>
+            </nav>
+            <div class="nav-overlay" id="navOverlay"></div>
+        </div>
+    </header>
+    <main class="dashboard-main" role="main">
+        <aside class="dashboard-sidebar" aria-label="Sidebar">
+            <div class="user-profile">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" id="userAvatar">
+                <h3 id="userName">Humayun Kabir</h3>
+                <span id="userEmail">humayunkabir1977@gmail.com</span>
+            </div>
+            <ul class="dashboard-menu">
+                <li class="active" data-section="overview" tabindex="0"><i class="fas fa-tachometer-alt"></i> Overview</li>
+                <li data-section="orders" tabindex="0"><i class="fas fa-box"></i> My Orders</li>
+                <li data-section="wishlist" tabindex="0"><i class="fas fa-heart"></i> Wishlist</li>
+                <li data-section="profile" tabindex="0"><i class="fas fa-user-cog"></i> Profile</li>
+                <li data-section="address" tabindex="0"><i class="fas fa-map-marker-alt"></i> Addresses</li>
+                <li data-section="security" tabindex="0"><i class="fas fa-lock"></i> Security</li>
+                <li data-section="logout" class="logout" tabindex="0"><i class="fas fa-sign-out-alt"></i> Logout</li>
+            </ul>
+        </aside>
+        <section class="dashboard-content">
+            <!-- Overview -->
+            <div class="dashboard-section active" id="overviewSection">
+                <h2>Welcome back, <span id="userFirstName">Arif</span>!</h2>
+                <div class="dashboard-cards">
+                    <div class="dashboard-card">
+                        <i class="fas fa-box"></i>
+                        <div>
+                            <span class="card-number" id="orderCount">3</span>
+                            <span>Orders</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <span class="card-number" id="wishlistCount">2</span>
+                            <span>Wishlist</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-card">
+                        <i class="fas fa-gem"></i>
+                        <div>
+                            <span class="card-number">Gold</span>
+                            <span>Membership</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard-quicklinks">
+                    <a href="#" data-section="orders"><i class="fas fa-box"></i> View Orders</a>
+                    <a href="#" data-section="wishlist"><i class="fas fa-heart"></i> Wishlist</a>
+                    <a href="#" data-section="profile"><i class="fas fa-user-cog"></i> Edit Profile</a>
+                </div>
+            </div>
+            <!-- Orders -->
+            <div class="dashboard-section" id="ordersSection">
+                <h2>My Orders</h2>
+                <table class="orders-table">
+                    <thead>
+                        <tr>
+                            <th>Order #</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Total</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
+            <!-- Wishlist -->
+            <div class="dashboard-section" id="wishlistSection">
+                <h2>My Wishlist</h2>
+                <div class="wishlist-grid" id="wishlistGrid"></div>
+            </div>
+            <!-- Profile -->
+            <div class="dashboard-section" id="profileSection">
+                <h2>Edit Profile</h2>
+                <form id="profileForm" autocomplete="off">
+                    <div class="profile-row">
+                        <label for="profileName">Full Name</label>
+                        <input type="text" id="profileName" value="Arif Rahman" required>
+                    </div>
+                    <div class="profile-row">
+                        <label for="profileEmail">Email</label>
+                        <input type="email" id="profileEmail" value="arif@email.com" required>
+                    </div>
+                    <div class="profile-row">
+                        <label for="profileAvatar">Avatar URL</label>
+                        <input type="text" id="profileAvatar" value="https://randomuser.me/api/portraits/men/32.jpg">
+                    </div>
+                    <button type="submit" class="dashboard-btn">Save Changes</button>
+                </form>
+            </div>
+            <!-- Addresses -->
+            <div class="dashboard-section" id="addressSection">
+                <h2>My Addresses</h2>
+                <ul class="address-list" id="addressList"></ul>
+                <form id="addressForm" autocomplete="off">
+                    <input type="text" id="addressInput" placeholder="Add new address..." required>
+                    <button type="submit" class="dashboard-btn">Add Address</button>
+                </form>
+            </div>
+            <!-- Security -->
+            <div class="dashboard-section" id="securitySection">
+                <h2>Security Settings</h2>
+                <form id="passwordForm" autocomplete="off">
+                    <div class="profile-row">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" required>
+                    </div>
+                    <div class="profile-row">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" required>
+                    </div>
+                    <div class="profile-row">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="dashboard-btn">Change Password</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Crown Watch brings together centuries of watchmaking tradition with modern innovation to create timepieces that stand the test of time.</p>
+                <div class="footer-social image-social">
+                    <a href="https://facebook.com" target="_blank" title="Facebook"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook Icon"></a>
+                    <a href="https://instagram.com" target="_blank" title="Instagram"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram Icon"></a>
+                    <a href="https://twitter.com" target="_blank" title="X (Twitter)"><img src="https://pngimg.com/uploads/x_logo/x_logo_PNG5.png" alt="X Logo"></a>
+                    <a href="https://wa.me/your_number" target="_blank" title="WhatsApp"><img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp Icon"></a>
+                    <a href="https://youtube.com" target="_blank" title="YouTube"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube Icon"></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Collections</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> New Arrivals</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Limited Editions</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Best Sellers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Special Offers</a></li>
+                </ul>
+                <h3 style="margin-top: 25px;">Policies</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Sale</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Return Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Customer Service</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Shipping Policy</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Returns & Exchanges</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Warranty Information</a></li>
+                </ul>
+                <h3 style="margin-top: 25px;">Corporate</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Corporate Site</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                </ul>
+                <div class="country-selector"><i class="fas fa-globe"></i> Select Country (Bangladesh)</div>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Luxury Avenue, Geneva, Switzerland</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +41 22 345 6789</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> info@crownwatch.com</a></li>
+                </ul>
+                <div class="footer-map-hours">
+                    <div class="footer-map">
+                        <h4>Find Us</h4>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.50834746771415!2d90.41011078331827!3d23.707624244328922!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b9071e381cb1%3A0x6edffd143c546362!2sPatuatuli%20Jame%20Masjid!5e0!3m2!1sen!2sbd!4v1749033874077!5m2!1sen!2sbd" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <div class="footer-hours">
+                        <h4>Business Hours</h4>
+                        <ul>
+                            <li><i class="far fa-clock"></i> Sun - Thu: 10:00 AM - 8:00 PM</li>
+                            <li><i class="far fa-clock"></i> Sat: 11:00 AM - 6:00 PM</li>
+                            <li><i class="far fa-clock"></i> Fri: Closed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-policies">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Sale</a>
+            <a href="#">Return Policy</a>
+            <a href="#">Sitemap</a>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Crown Watch. All rights reserved. Crafted with precision and passion. <a href="mailto:humayunkabir1977@gmail.com">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a></p>
+        </div>
+    </footer>
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+        document.getElementById('navOverlay').classList.toggle('show');
+    };
+    document.getElementById('navOverlay').onclick = function() {
+        document.getElementById('navLinks').classList.remove('nav-active');
+        this.classList.remove('show');
+    };
+    // Sidebar navigation
+    document.querySelectorAll('.dashboard-menu li').forEach(item => {
+        item.onclick = function() {
+            if (item.classList.contains('logout')) {
+                alert('Logged out! (Demo)');
+                window.location.href = 'user.html';
+                return;
+            }
+            document.querySelectorAll('.dashboard-menu li').forEach(li => li.classList.remove('active'));
+            item.classList.add('active');
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(item.dataset.section + 'Section').classList.add('active');
+        };
+    });
+    // Quicklinks
+    document.querySelectorAll('.dashboard-quicklinks a').forEach(link => {
+        link.onclick = function(e) {
+            e.preventDefault();
+            const section = link.dataset.section;
+            document.querySelectorAll('.dashboard-menu li').forEach(li => {
+                li.classList.toggle('active', li.dataset.section === section);
+            });
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(section + 'Section').classList.add('active');
+        };
+    });
+    // Demo orders
+    const orders = [
+        {id: 'CW-1001', date: '2025-05-01', status: 'Delivered', total: '$1200'},
+        {id: 'CW-1002', date: '2025-04-18', status: 'Shipped', total: '$950'},
+        {id: 'CW-1003', date: '2025-03-22', status: 'Processing', total: '$420'}
+    ];
+    function renderOrders() {
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = '';
+        orders.forEach(order => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${order.id}</td>
+                <td>${order.date}</td>
+                <td><span class="order-status ${order.status.toLowerCase()}">${order.status}</span></td>
+                <td>${order.total}</td>
+                <td><button class="order-details-btn">View</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+        document.getElementById('orderCount').textContent = orders.length;
+    }
+    renderOrders();
+    // Demo wishlist
+    const wishlist = [
+        {name: "Rolex Submariner", price: "$1200", img: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80"},
+        {name: "Omega Seamaster", price: "$950", img: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"}
+    ];
+    function renderWishlist() {
+        const grid = document.getElementById('wishlistGrid');
+        grid.innerHTML = '';
+        wishlist.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'wishlist-card';
+            div.innerHTML = `
+                <img src="${item.img}" alt="${item.name}">
+                <h4>${item.name}</h4>
+                <span class="wishlist-price">${item.price}</span>
+                <button class="wishlist-remove-btn" data-idx="${idx}"><i class="fas fa-trash"></i> Remove</button>
+            `;
+            grid.appendChild(div);
+        });
+        document.getElementById('wishlistCount').textContent = wishlist.length;
+    }
+    renderWishlist();
+    document.getElementById('wishlistGrid').onclick = function(e) {
+        if (e.target.closest('.wishlist-remove-btn')) {
+            const idx = parseInt(e.target.closest('.wishlist-remove-btn').dataset.idx);
+            wishlist.splice(idx, 1);
+            renderWishlist();
+        }
+    };
+    // Profile form
+    document.getElementById('profileForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('userName').textContent = document.getElementById('profileName').value;
+        document.getElementById('userFirstName').textContent = document.getElementById('profileName').value.split(' ')[0];
+        document.getElementById('userEmail').textContent = document.getElementById('profileEmail').value;
+        document.getElementById('userAvatar').src = document.getElementById('profileAvatar').value;
+        alert('Profile updated! (Demo)');
+    };
+    // Addresses
+    let addresses = [
+        "123 Main St, Dhaka, Bangladesh",
+        "456 Park Ave, Chittagong, Bangladesh"
+    ];
+    function renderAddresses() {
+        const ul = document.getElementById('addressList');
+        ul.innerHTML = '';
+        addresses.forEach((addr, idx) => {
+            const li = document.createElement('li');
+            li.innerHTML = `${addr} <button class="address-remove-btn" data-idx="${idx}"><i class="fas fa-trash"></i></button>`;
+            ul.appendChild(li);
+        });
+    }
+    renderAddresses();
+    document.getElementById('addressForm').onsubmit = function(e) {
+        e.preventDefault();
+        addresses.push(document.getElementById('addressInput').value);
+        document.getElementById('addressInput').value = '';
+        renderAddresses();
+    };
+    document.getElementById('addressList').onclick = function(e) {
+        if (e.target.closest('.address-remove-btn')) {
+            const idx = parseInt(e.target.closest('.address-remove-btn').dataset.idx);
+            addresses.splice(idx, 1);
+            renderAddresses();
+        }
+    };
+    // Password change (demo)
+    document.getElementById('passwordForm').onsubmit = function(e) {
+        e.preventDefault();
+        const newPass = document.getElementById('newPassword').value;
+        const confPass = document.getElementById('confirmPassword').value;
+        if (newPass !== confPass) {
+            alert('Passwords do not match!');
+            return;
+        }
+        alert('Password changed! (Demo)');
+        document.getElementById('passwordForm').reset();
+    };
+    // Company dropdown: click to toggle, click outside to close
+    const companyDropdown = document.getElementById('companyDropdown');
+    const dropdownToggle = companyDropdown.querySelector('.dropdown-toggle');
+    const dropdownMenu = companyDropdown.querySelector('.dropdown-menu');
+
+    // Remove hover-based dropdown logic (if any)
+    companyDropdown.onmouseenter = null;
+    companyDropdown.onmouseleave = null;
+
+    // Toggle dropdown on click
+    let companyOpen = false;
+    dropdownToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        companyOpen = !companyOpen;
+        companyDropdown.classList.toggle('open', companyOpen);
+        dropdownToggle.setAttribute('aria-expanded', companyOpen);
+    });
+    // Close dropdown if clicking outside
+    window.addEventListener('click', function(e) {
+        if (!companyDropdown.contains(e.target)) {
+            companyOpen = false;
+            companyDropdown.classList.remove('open');
+            dropdownToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+    // Theme toggle
+    const themeBtn = document.getElementById('toggleDark');
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+    }
+    themeBtn.onclick = function() {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    };
+    </script>
+</body>
+</html>

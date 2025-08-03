@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Crown Watch</title>
+    <link rel="stylesheet" href="shop.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html" class="active">Shop</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Shop Hero Section -->
+    <section class="shop-hero">
+        <h1>Discover Our Collection</h1>
+        <p>Luxury watches for every style and occasion.</p>
+    </section>
+
+    <!-- Filters and Search -->
+    <section class="shop-filters">
+        <input type="text" id="searchInput" placeholder="Search watches...">
+        <select id="brandFilter">
+            <option value="">All Brands</option>
+            <option value="Rolex">Rolex</option>
+            <option value="Omega">Omega</option>
+            <option value="Casio">Casio</option>
+            <option value="Seiko">Seiko</option>
+        </select>
+        <select id="priceFilter">
+            <option value="">All Prices</option>
+            <option value="0-200">$0 - $200</option>
+            <option value="200-500">$200 - $500</option>
+            <option value="500-1000">$500 - $1000</option>
+            <option value="1000+">$1000+</option>
+        </select>
+        <button id="resetFilters">Reset</button>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="product-grid" id="productGrid">
+        <!-- Products will be injected here by JS -->
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <span class="close-cart" id="closeCart">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                Total: $<span id="cartTotal">0.00</span>
+            </div>
+            <button class="checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Product data (sample, replace with your own or fetch from server)
+    const products = [
+        {
+            id: 1,
+            name: "Rolex Submariner",
+            brand: "Rolex",
+            price: 1200,
+            image: " "
+        },
+        {
+            id: 2,
+            name: "Omega Seamaster",
+            brand: "Omega",
+            price: 950,
+            image: "h"
+        },
+        {
+            id: 3,
+            name: "Casio G-Shock",
+            brand: "Casio",
+            price: 180,
+            image: "https:00&q=80"
+        },
+        {
+            id: 4,
+            name: "Seiko Presage",
+            brand: "Seiko",
+            price: 420,
+            image: " "
+        },
+        {
+            id: 5,
+            name: "Rolex Daytona",
+            brand: "Rolex",
+            price: 1500,
+            image: ""
+        },
+        {
+            id: 6,
+            name: "Omega Speedmaster",
+            brand: "Omega",
+            price: 1100,
+            image: ""
+        }
+    ];
+
+    // Render products
+    function renderProducts(list) {
+        const grid = document.getElementById('productGrid');
+        grid.innerHTML = '';
+        if (list.length === 0) {
+            grid.innerHTML = '<p class="no-results">No products found.</p>';
+            return;
+        }
+        list.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <p class="brand">${product.brand}</p>
+                    <p class="price">$${product.price}</p>
+                    <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    // Filtering logic
+    function filterProducts() {
+        const search = document.getElementById('searchInput').value.toLowerCase();
+        const brand = document.getElementById('brandFilter').value;
+        const price = document.getElementById('priceFilter').value;
+        let filtered = products.filter(p => 
+            p.name.toLowerCase().includes(search) &&
+            (brand === "" || p.brand === brand) &&
+            (
+                price === "" ||
+                (price === "0-200" && p.price <= 200) ||
+                (price === "200-500" && p.price > 200 && p.price <= 500) ||
+                (price === "500-1000" && p.price > 500 && p.price <= 1000) ||
+                (price === "1000+" && p.price > 1000)
+            )
+        );
+        renderProducts(filtered);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', filterProducts);
+    document.getElementById('brandFilter').addEventListener('change', filterProducts);
+    document.getElementById('priceFilter').addEventListener('change', filterProducts);
+    document.getElementById('resetFilters').addEventListener('click', function() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('brandFilter').value = '';
+        document.getElementById('priceFilter').value = '';
+        renderProducts(products);
+    });
+
+    // Cart logic
+    let cart = [];
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('add-to-cart-btn')) {
+            const id = parseInt(e.target.getAttribute('data-id'));
+            const product = products.find(p => p.id === id);
+            if (product) {
+                cart.push(product);
+                updateCart();
+                document.getElementById('cartModal').style.display = 'block';
+            }
+        }
+        if (e.target.id === 'closeCart') {
+            document.getElementById('cartModal').style.display = 'none';
+        }
+    });
+
+    function updateCart() {
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        cartItems.innerHTML = '';
+        let total = 0;
+        if (cart.length === 0) {
+            cartItems.innerHTML = '<p>Your cart is empty.</p>';
+        } else {
+            cart.forEach((item, idx) => {
+                total += item.price;
+                const div = document.createElement('div');
+                div.className = 'cart-item';
+                div.innerHTML = `
+                    <span>${item.name} - $${item.price}</span>
+                    <button class="remove-cart-item" data-idx="${idx}">&times;</button>
+                `;
+                cartItems.appendChild(div);
+            });
+        }
+        cartTotal.textContent = total.toFixed(2);
+    }
+
+    document.getElementById('cartItems').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-cart-item')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            cart.splice(idx, 1);
+            updateCart();
+        }
+    });
+
+    // Close cart modal when clicking outside
+    window.onclick = function(event) {
+        const modal = document.getElementById('cartModal');
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    // Initial render
+    renderProducts(products);
+    </script>
+</body>
+</html>

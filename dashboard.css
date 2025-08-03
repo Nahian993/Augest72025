@@ -1,0 +1,482 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: #f8fafc;
+    color: #222;
+}
+
+.sticky-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.navbar .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 2em;
+}
+
+.logo a {
+    font-size: 2em;
+    font-weight: 700;
+    color: #222;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-links ul {
+    display: flex;
+    gap: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links ul li a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-links ul li a.active,
+.nav-links ul li a:hover {
+    background: #222;
+    color: #fff;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+@media (max-width: 900px) {
+    .nav-links ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100vw;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .nav-links.nav-active ul {
+        display: flex;
+    }
+    .hamburger {
+        display: inline-block;
+    }
+}
+
+.dashboard-main {
+    display: flex;
+    max-width: 1100px;
+    margin: 3em auto 2em auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    min-height: 600px;
+}
+
+.dashboard-sidebar {
+    width: 250px;
+    background: #f8fafc;
+    border-right: 1px solid #eee;
+    border-radius: 16px 0 0 16px;
+    padding: 2em 1em 2em 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.user-profile {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.user-profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #0077ff;
+    margin-bottom: 0.7em;
+}
+
+.user-profile h3 {
+    margin: 0.2em 0 0.1em 0;
+    font-size: 1.15em;
+    font-weight: 700;
+}
+
+.user-profile span {
+    color: #888;
+    font-size: 0.98em;
+}
+
+.dashboard-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.dashboard-menu li {
+    padding: 0.9em 1em;
+    margin-bottom: 0.3em;
+    border-radius: 6px;
+    font-size: 1.08em;
+    color: #222;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.7em;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dashboard-menu li.active,
+.dashboard-menu li:hover {
+    background: #0077ff;
+    color: #fff;
+}
+
+.dashboard-menu li.logout {
+    color: #f44336;
+    margin-top: 2em;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 2.5em 2em 2em 2em;
+    min-width: 0;
+}
+
+.dashboard-section {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+.dashboard-section.active {
+    display: block;
+}
+
+.dashboard-section h2 {
+    font-size: 1.4em;
+    font-weight: 700;
+    margin-bottom: 1.2em;
+}
+
+.dashboard-cards {
+    display: flex;
+    gap: 2em;
+    margin-bottom: 2em;
+    flex-wrap: wrap;
+}
+
+.dashboard-card {
+    background: #f8fafc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1.2em 1.5em;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    min-width: 140px;
+}
+
+.dashboard-card i {
+    font-size: 2em;
+    color: #0077ff;
+}
+
+.card-number {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #222;
+    display: block;
+}
+
+.dashboard-quicklinks {
+    display: flex;
+    gap: 1.2em;
+    margin-bottom: 1.5em;
+}
+
+.dashboard-quicklinks a {
+    background: #222;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0.6em 1.2em;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    transition: background 0.2s;
+}
+
+.dashboard-quicklinks a:hover {
+    background: #0077ff;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2em;
+}
+
+.orders-table th, .orders-table td {
+    padding: 0.8em 1em;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.orders-table th {
+    background: #f8fafc;
+    color: #555;
+}
+
+.order-status {
+    padding: 0.3em 1em;
+    border-radius: 4px;
+    font-size: 0.98em;
+    font-weight: 600;
+}
+
+.order-status.delivered {
+    background: #e0f7e9;
+    color: #27ae60;
+}
+.order-status.shipped {
+    background: #e3f2fd;
+    color: #0077ff;
+}
+.order-status.processing {
+    background: #fff3e0;
+    color: #f7b731;
+}
+
+.order-details-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.4em 1em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.order-details-btn:hover {
+    background: #0077ff;
+}
+
+.wishlist-grid {
+    display: flex;
+    gap: 2em;
+    flex-wrap: wrap;
+}
+
+.wishlist-card {
+    background: #f8fafc;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 1em 1.2em;
+    text-align: center;
+    width: 180px;
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.wishlist-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.7em;
+}
+
+.wishlist-card h4 {
+    margin: 0.3em 0 0.1em 0;
+    font-size: 1.08em;
+    font-weight: 700;
+}
+
+.wishlist-price {
+    color: #222;
+    font-size: 1em;
+    font-weight: 600;
+    margin-bottom: 0.7em;
+}
+
+.wishlist-remove-btn {
+    background: #f44336;
+    color: #fff;
+    border: none;
+    padding: 0.4em 1em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.wishlist-remove-btn:hover {
+    background: #b71c1c;
+}
+
+.profile-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+    margin-bottom: 1em;
+}
+
+.profile-row label {
+    font-size: 1em;
+    color: #555;
+}
+
+.profile-row input[type="text"],
+.profile-row input[type="email"],
+.profile-row input[type="password"] {
+    padding: 0.7em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.dashboard-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.8em 0;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin-top: 0.5em;
+    transition: background 0.2s;
+}
+
+.dashboard-btn:hover {
+    background: #0077ff;
+}
+
+.address-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1em;
+}
+
+.address-list li {
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 0.7em 1em;
+    margin-bottom: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.address-remove-btn {
+    background: #f44336;
+    color: #fff;
+    border: none;
+    padding: 0.3em 0.7em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.address-remove-btn:hover {
+    background: #b71c1c;
+}
+
+.footer {
+    background: #222;
+    color: #fff;
+    padding: 2em 1em 1em 1em;
+    margin-top: 3em;
+}
+
+.footer-map-hours {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2em 0;
+    flex-wrap: wrap;
+}
+
+.footer-map, .footer-hours {
+    background: #23272b;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    color: #fff;
+    min-width: 220px;
+}
+
+.footer-hours ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-hours li {
+    margin-bottom: 0.5em;
+    font-size: 1em;
+}
+
+.footer-bottom-content {
+    text-align: center;
+    margin-top: 2em;
+    color: #bbb;
+    font-size: 0.95em;
+}
+
+@media (max-width: 900px) {
+    .dashboard-main {
+        flex-direction: column;
+        padding: 1em;
+    }
+    .dashboard-sidebar {
+        width: 100%;
+        border-radius: 16px 16px 0 0;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 2em;
+        padding: 1em;
+    }
+    .dashboard-content {
+        padding: 1em;
+    }
+    .dashboard-cards, .wishlist-grid {
+        flex-direction: column;
+        gap: 1em;
+    }
+    .footer-map-hours {
+        flex-direction: column;
+        gap: 1em;
+        align-items: stretch;
+    }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

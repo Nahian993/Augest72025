@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart | Crown Watch</title>
+    <link rel="stylesheet" href="cart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="cart-main">
+        <h1>Your Shopping Cart</h1>
+        <div id="cartContainer">
+            <!-- Cart items will be injected here -->
+        </div>
+        <div class="cart-summary">
+            <div>
+                <span>Subtotal:</span>
+                <span id="cartSubtotal">$0.00</span>
+            </div>
+            <div>
+                <span>Shipping:</span>
+                <span id="cartShipping">$20.00</span>
+            </div>
+            <div class="cart-total-row">
+                <span>Total:</span>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Demo cart data (replace with localStorage or backend in real app)
+    let cart = [
+        {
+            id: 1,
+            name: "Rolex Submariner",
+            price: 1200,
+            image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=400&q=80",
+            quantity: 1
+        },
+        {
+            id: 2,
+            name: "Omega Seamaster",
+            price: 950,
+            image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80",
+            quantity: 2
+        }
+    ];
+
+    function renderCart() {
+        const container = document.getElementById('cartContainer');
+        container.innerHTML = '';
+        if (cart.length === 0) {
+            container.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
+            document.getElementById('cartSubtotal').textContent = '$0.00';
+            document.getElementById('cartTotal').textContent = '$0.00';
+            return;
+        }
+        cart.forEach((item, idx) => {
+            const div = document.createElement('div');
+            div.className = 'cart-item-row';
+            div.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-info">
+                    <h3>${item.name}</h3>
+                    <div class="cart-item-price">$${item.price}</div>
+                    <div class="cart-item-qty">
+                        <button class="qty-btn" data-idx="${idx}" data-action="dec">-</button>
+                        <input type="number" min="1" max="5" value="${item.quantity}" data-idx="${idx}" class="qty-input">
+                        <button class="qty-btn" data-idx="${idx}" data-action="inc">+</button>
+                    </div>
+                </div>
+                <button class="remove-cart-item" data-idx="${idx}" title="Remove"><i class="fas fa-trash"></i></button>
+            `;
+            container.appendChild(div);
+        });
+        updateTotals();
+    }
+
+    function updateTotals() {
+        let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        let shipping = cart.length > 0 ? 20 : 0;
+        document.getElementById('cartSubtotal').textContent = '$' + subtotal.toFixed(2);
+        document.getElementById('cartShipping').textContent = '$' + shipping.toFixed(2);
+        document.getElementById('cartTotal').textContent = '$' + (subtotal + shipping).toFixed(2);
+    }
+
+    document.getElementById('cartContainer').addEventListener('click', function(e) {
+        if (e.target.classList.contains('remove-cart-item') || e.target.closest('.remove-cart-item')) {
+            const idx = parseInt(e.target.closest('.remove-cart-item').getAttribute('data-idx'));
+            cart.splice(idx, 1);
+            renderCart();
+        }
+        if (e.target.classList.contains('qty-btn')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            const action = e.target.getAttribute('data-action');
+            if (action === 'inc' && cart[idx].quantity < 5) cart[idx].quantity++;
+            if (action === 'dec' && cart[idx].quantity > 1) cart[idx].quantity--;
+            renderCart();
+        }
+    });
+
+    document.getElementById('cartContainer').addEventListener('input', function(e) {
+        if (e.target.classList.contains('qty-input')) {
+            const idx = parseInt(e.target.getAttribute('data-idx'));
+            let val = parseInt(e.target.value);
+            if (isNaN(val) || val < 1) val = 1;
+            if (val > 5) val = 5;
+            cart[idx].quantity = val;
+            renderCart();
+        }
+    });
+
+    document.getElementById('checkoutBtn').onclick = function() {
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+        } else {
+            alert('Proceeding to checkout...');
+            // Redirect to checkout page or process order
+        }
+    };
+
+    renderCart();
+    </script>
+</body>
+</html>

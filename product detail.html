@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolex Submariner | Crown Watch</title>
+    <link rel="stylesheet" href="product.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Product Detail Section -->
+    <main class="product-detail-main">
+        <div class="product-gallery">
+            <img id="mainImage" src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=600&q=80" alt="Rolex Submariner" class="main-img">
+            <div class="thumbnail-row">
+                <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=600&q=80" alt="Rolex Submariner" class="thumb active">
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Rolex Submariner Side" class="thumb">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Rolex Submariner Back" class="thumb">
+            </div>
+        </div>
+        <div class="product-info-detail">
+            <h1>Rolex Submariner</h1>
+            <div class="brand-rating">
+                <span class="brand">Brand: <b>Rolex</b></span>
+                <span class="rating">
+                    <i class="fas fa-star"></i> 4.9 (128 reviews)
+                </span>
+            </div>
+            <div class="price-stock">
+                <span class="price">$1,200</span>
+                <span class="stock in-stock"><i class="fas fa-check-circle"></i> In Stock</span>
+            </div>
+            <p class="short-desc">
+                The Rolex Submariner is the ultimate symbol of luxury and performance. Crafted with precision, this iconic timepiece is water-resistant up to 300 meters and features a self-winding automatic movement.
+            </p>
+            <ul class="product-features">
+                <li><b>Movement:</b> Automatic</li>
+                <li><b>Case Material:</b> Stainless Steel</li>
+                <li><b>Case Diameter:</b> 40mm</li>
+                <li><b>Water Resistance:</b> 300m</li>
+                <li><b>Crystal:</b> Sapphire</li>
+                <li><b>Power Reserve:</b> 48 hours</li>
+                <li><b>Warranty:</b> 5 Years</li>
+            </ul>
+            <div class="quantity-row">
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" value="1" min="1" max="5">
+            </div>
+            <button class="add-to-cart-btn" id="addToCartBtn"><i class="fas fa-cart-plus"></i> Add to Cart</button>
+            <button class="wishlist-btn"><i class="fas fa-heart"></i> Add to Wishlist</button>
+            <div class="share-row">
+                <span>Share:</span>
+                <a href="#" title="Share on Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="secure-pay">
+                <i class="fas fa-lock"></i> Secure Payment &amp; Fast Delivery
+            </div>
+        </div>
+    </main>
+
+    <!-- Tabs for Description, Specs, Reviews -->
+    <section class="product-tabs">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="desc">Description</button>
+            <button class="tab-btn" data-tab="specs">Specifications</button>
+            <button class="tab-btn" data-tab="reviews">Reviews</button>
+        </div>
+        <div class="tab-content active" id="desc">
+            <h2>Product Description</h2>
+            <p>
+                The Rolex Submariner is a legend among divers' watches. Since its launch in 1953, it has set the standard for underwater timepieces. With its robust Oystersteel case, unidirectional rotatable bezel, and luminescent hour markers, the Submariner is both functional and elegant. Whether you're exploring the ocean depths or attending a formal event, this watch is the perfect companion.
+            </p>
+        </div>
+        <div class="tab-content" id="specs">
+            <h2>Technical Specifications</h2>
+            <table class="specs-table">
+                <tr><th>Brand</th><td>Rolex</td></tr>
+                <tr><th>Model</th><td>Submariner</td></tr>
+                <tr><th>Movement</th><td>Automatic</td></tr>
+                <tr><th>Case Diameter</th><td>40mm</td></tr>
+                <tr><th>Case Material</th><td>Stainless Steel</td></tr>
+                <tr><th>Water Resistance</th><td>300m</td></tr>
+                <tr><th>Crystal</th><td>Sapphire</td></tr>
+                <tr><th>Power Reserve</th><td>48 hours</td></tr>
+                <tr><th>Warranty</th><td>5 Years</td></tr>
+            </table>
+        </div>
+        <div class="tab-content" id="reviews">
+            <h2>Customer Reviews</h2>
+            <div class="review">
+                <div class="review-header">
+                    <span class="reviewer">A. Rahman</span>
+                    <span class="review-rating"><i class="fas fa-star"></i> 5.0</span>
+                </div>
+                <p class="review-text">Absolutely stunning watch! The build quality is unmatched and it feels great on the wrist. Highly recommended.</p>
+            </div>
+            <div class="review">
+                <div class="review-header">
+                    <span class="reviewer">S. Chowdhury</span>
+                    <span class="review-rating"><i class="fas fa-star"></i> 4.8</span>
+                </div>
+                <p class="review-text">A true classic. The Submariner is worth every penny. Fast shipping and great service from Crown Watch.</p>
+            </div>
+            <form class="review-form">
+                <h3>Leave a Review</h3>
+                <input type="text" placeholder="Your Name" required>
+                <select required>
+                    <option value="">Rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Very Good</option>
+                    <option value="3">3 - Good</option>
+                    <option value="2">2 - Fair</option>
+                    <option value="1">1 - Poor</option>
+                </select>
+                <textarea placeholder="Your review..." required></textarea>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Related Products -->
+    <section class="related-products">
+        <h2>Related Products</h2>
+        <div class="related-grid">
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="Omega Seamaster">
+                <div>
+                    <h4>Omega Seamaster</h4>
+                    <span class="price">$950</span>
+                </div>
+                <a href="product.html" class="view-btn">View</a>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Casio G-Shock">
+                <div>
+                    <h4>Casio G-Shock</h4>
+                    <span class="price">$180</span>
+                </div>
+                <a href="product.html" class="view-btn">View</a>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Seiko Presage">
+                <div>
+                    <h4>Seiko Presage</h4>
+                    <span class="price">$420</span>
+                </div>
+                <a href="product.html" class="view-btn">View</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Product gallery thumbnail click
+    document.querySelectorAll('.thumb').forEach(thumb => {
+        thumb.addEventListener('click', function() {
+            document.getElementById('mainImage').src = this.src;
+            document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(this.dataset.tab).classList.add('active');
+        });
+    });
+
+    // Review form (demo, no backend)
+    document.querySelector('.review-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Thank you for your review!');
+        this.reset();
+    });
+
+    // Add to cart (demo)
+    document.getElementById('addToCartBtn').onclick = function() {
+        alert('Added to cart!');
+    };
+    </script>
+</body>
+</html>

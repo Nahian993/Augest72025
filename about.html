@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Crown Watch</title>
+    <link rel="stylesheet" href="about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="about-main">
+        <section class="about-hero">
+            <h1>About Crown Watch</h1>
+            <p>Timeless elegance, trusted expertise, and a passion for horology.</p>
+        </section>
+        <section class="about-story">
+            <h2>Our Story</h2>
+            <p>
+                Founded in 2020, Crown Watch was born from a love of fine timepieces and a desire to bring the world’s best watches to enthusiasts everywhere. Our team is made up of passionate collectors, certified watchmakers, and customer service professionals dedicated to delivering an exceptional experience.
+            </p>
+            <p>
+                We believe a great watch is more than just a way to tell time—it’s a statement of style, craftsmanship, and heritage. Whether you’re a seasoned collector or buying your first luxury watch, we’re here to guide you every step of the way.
+            </p>
+        </section>
+        <section class="about-values">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-gem"></i>
+                    <h3>Authenticity</h3>
+                    <p>Every watch is 100% authentic, sourced from trusted partners and verified by our experts.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h3>Trust</h3>
+                    <p>We stand behind every sale with transparent policies and a commitment to your satisfaction.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-tools"></i>
+                    <h3>Expertise</h3>
+                    <p>Our certified watchmakers and knowledgeable staff are always ready to help and advise.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Passion</h3>
+                    <p>We love watches as much as you do, and it shows in everything we do.</p>
+                </div>
+            </div>
+        </section>
+        <section class="about-team">
+            <h2>Meet Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="" alt="Founder">
+                    <h4>Md. Golam Hossain</h4>
+                    <span>Founder & CEO</span>
+                </div>
+                <div class="team-card">
+                    <img src="" alt="Head Watchmaker">
+                    <h4>Mohammad Humayun Kabir</h4>
+                    <span>Head Watchmaker</span>
+                </div>
+                <div class="team-card">
+                    <img src="" alt="Customer Service">
+                    <h4>Habibur Rahman</h4>
+                    <span>Customer Service Lead</span>
+                </div>
+                <div class="team-card">
+                    <img src="" alt="Marketing">
+                    <h4>Md. Nahian Kabir</h4>
+                    <span>Marketing Manager</span>
+                </div>
+            </div>
+        </section>
+        <section class="about-cta">
+            <h2>Why Choose Crown Watch?</h2>
+            <ul>
+                
+                <li><i class="fas fa-check-circle"></i> Warranty on all  branded watches</li>
+                <li><i class="fas fa-check-circle"></i> 12/7 customer support</li>
+                <li><i class="fas fa-check-circle"></i> Secure payment & easy returns</li>
+            </ul>
+            <a href="shop.html" class="about-btn">Browse Our Collection</a>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+    </script>
+</body>
+</html>

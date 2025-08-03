@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown Watch Blog</title>
+    <link rel="stylesheet" href="blog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html" class="active">Blog</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Blog Hero -->
+    <section class="blog-hero">
+        <h1>Watch World Insights</h1>
+        <p>Latest news, reviews, and guides from Crown Watch experts.</p>
+        <form id="blogSearchForm">
+            <input type="text" id="blogSearch" placeholder="Search articles, brands, or topics...">
+            <button type="submit"><i class="fas fa-search"></i></button>
+        </form>
+    </section>
+
+    <!-- Blog Filters -->
+    <section class="blog-filters">
+        <select id="categoryFilter">
+            <option value="">All Categories</option>
+            <option value="news">News</option>
+            <option value="review">Reviews</option>
+            <option value="guide">Guides</option>
+            <option value="interview">Interviews</option>
+        </select>
+        <select id="sortFilter">
+            <option value="latest">Latest</option>
+            <option value="popular">Most Popular</option>
+            <option value="comments">Most Commented</option>
+        </select>
+        <button id="resetBlogFilters">Reset</button>
+        <button id="openWriteModal"><i class="fas fa-pen"></i> Write Post</button>
+    </section>
+
+    <!-- Blog Grid -->
+    <main class="blog-grid" id="blogGrid">
+        <!-- Blog posts will be injected here -->
+    </main>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination"></div>
+
+    <!-- Write Post Modal -->
+    <div class="modal" id="writeModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeWriteModal">&times;</span>
+            <h2>Write a New Blog Post</h2>
+            <form id="writePostForm">
+                <input type="text" id="postTitle" placeholder="Title" required>
+                <select id="postCategory" required>
+                    <option value="">Select Category</option>
+                    <option value="news">News</option>
+                    <option value="review">Review</option>
+                    <option value="guide">Guide</option>
+                    <option value="interview">Interview</option>
+                </select>
+                <textarea id="postContent" placeholder="Write your article..." rows="6" required></textarea>
+                <input type="text" id="postAuthor" placeholder="Your Name" required>
+                <button type="submit">Publish</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Blog Post Modal (for reading full post) -->
+    <div class="modal" id="readModal">
+        <div class="modal-content" id="readModalContent">
+            <!-- Full post content will be injected here -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Demo blog data
+    let blogPosts = [
+        {
+            id: 1,
+            title: "Rolex Submariner: The Iconic Dive Watch",
+            category: "review",
+            author: "A. Rahman",
+            date: "2025-05-01",
+            content: "The Rolex Submariner is a legend among divers' watches. In this review, we explore its history, features, and why it's a must-have for collectors.",
+            image: "https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&w=600&q=80",
+            comments: [
+                {author: "Sam", text: "Great review!"},
+                {author: "Mina", text: "Love my Submariner."}
+            ],
+            likes: 12,
+            views: 120
+        },
+        {
+            id: 2,
+            title: "How to Choose Your First Luxury Watch",
+            category: "guide",
+            author: "S. Chowdhury",
+            date: "2025-04-28",
+            content: "Buying your first luxury watch? Here are the top things to consider, from movement to brand reputation and resale value.",
+            image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80",
+            comments: [],
+            likes: 8,
+            views: 95
+        },
+        {
+            id: 3,
+            title: "Interview: Omega’s Master Watchmaker",
+            category: "interview",
+            author: "Editor",
+            date: "2025-04-20",
+            content: "We sit down with Omega’s master watchmaker to discuss innovation, tradition, and the future of Swiss horology.",
+            image: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80",
+            comments: [{author: "Ali", text: "Very insightful!"}],
+            likes: 5,
+            views: 60
+        },
+        {
+            id: 4,
+            title: "2025 Watch Trends: What’s Hot This Year?",
+            category: "news",
+            author: "Crown Watch Team",
+            date: "2025-04-10",
+            content: "From bold colors to vintage revivals, we break down the top watch trends for 2025.",
+            image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+            comments: [],
+            likes: 3,
+            views: 40
+        }
+    ];
+
+    // Pagination
+    let currentPage = 1;
+    const postsPerPage = 3;
+
+    // Render blog posts
+    function renderBlog(posts) {
+        const grid = document.getElementById('blogGrid');
+        grid.innerHTML = '';
+        if (posts.length === 0) {
+            grid.innerHTML = '<p class="no-results">No articles found.</p>';
+            document.getElementById('pagination').innerHTML = '';
+            return;
+        }
+        // Pagination logic
+        const totalPages = Math.ceil(posts.length / postsPerPage);
+        const start = (currentPage - 1) * postsPerPage;
+        const end = start + postsPerPage;
+        const pagePosts = posts.slice(start, end);
+
+        pagePosts.forEach(post => {
+            const card = document.createElement('div');
+            card.className = 'blog-card';
+            card.innerHTML = `
+                <img src="${post.image}" alt="${post.title}">
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span class="category">${capitalize(post.category)}</span>
+                        <span class="date">${formatDate(post.date)}</span>
+                    </div>
+                    <h2>${post.title}</h2>
+                    <p>${post.content.substring(0, 100)}...</p>
+                    <div class="blog-card-footer">
+                        <span class="author"><i class="fas fa-user"></i> ${post.author}</span>
+                        <span class="views"><i class="fas fa-eye"></i> ${post.views}</span>
+                        <span class="likes" data-id="${post.id}"><i class="fas fa-heart"></i> ${post.likes}</span>
+                        <span class="comments"><i class="fas fa-comments"></i> ${post.comments.length}</span>
+                        <button class="read-btn" data-id="${post.id}">Read More</button>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Pagination controls
+        let pagHtml = '';
+        for (let i = 1; i <= totalPages; i++) {
+            pagHtml += `<button class="pag-btn${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</button>`;
+        }
+        document.getElementById('pagination').innerHTML = pagHtml;
+    }
+
+    // Capitalize helper
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    // Date format helper
+    function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString(undefined, {year: 'numeric', month: 'short', day: 'numeric'});
+    }
+
+    // Filtering and sorting
+    function filterBlog() {
+        let search = document.getElementById('blogSearch').value.toLowerCase();
+        let cat = document.getElementById('categoryFilter').value;
+        let sort = document.getElementById('sortFilter').value;
+        let filtered = blogPosts.filter(p =>
+            (p.title.toLowerCase().includes(search) || p.content.toLowerCase().includes(search)) &&
+            (cat === "" || p.category === cat)
+        );
+        if (sort === "latest") filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        if (sort === "popular") filtered.sort((a, b) => b.likes - a.likes);
+        if (sort === "comments") filtered.sort((a, b) => b.comments.length - a.comments.length);
+        currentPage = 1;
+        renderBlog(filtered);
+    }
+
+    document.getElementById('blogSearchForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        filterBlog();
+    });
+    document.getElementById('categoryFilter').addEventListener('change', filterBlog);
+    document.getElementById('sortFilter').addEventListener('change', filterBlog);
+    document.getElementById('resetBlogFilters').addEventListener('click', function() {
+        document.getElementById('blogSearch').value = '';
+        document.getElementById('categoryFilter').value = '';
+        document.getElementById('sortFilter').value = 'latest';
+        filterBlog();
+    });
+
+    // Pagination click
+    document.getElementById('pagination').addEventListener('click', function(e) {
+        if (e.target.classList.contains('pag-btn')) {
+            currentPage = parseInt(e.target.getAttribute('data-page'));
+            filterBlog();
+        }
+    });
+
+    // Like post
+    document.getElementById('blogGrid').addEventListener('click', function(e) {
+        if (e.target.closest('.likes')) {
+            const id = parseInt(e.target.closest('.likes').getAttribute('data-id'));
+            const post = blogPosts.find(p => p.id === id);
+            post.likes++;
+            filterBlog();
+        }
+        // Read more
+        if (e.target.classList.contains('read-btn')) {
+            const id = parseInt(e.target.getAttribute('data-id'));
+            openReadModal(id);
+        }
+    });
+
+    // Write post modal
+    document.getElementById('openWriteModal').onclick = function() {
+        document.getElementById('writeModal').style.display = 'flex';
+    };
+    document.getElementById('closeWriteModal').onclick = function() {
+        document.getElementById('writeModal').style.display = 'none';
+    };
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('writeModal')) {
+            document.getElementById('writeModal').style.display = 'none';
+        }
+        if (event.target === document.getElementById('readModal')) {
+            document.getElementById('readModal').style.display = 'none';
+        }
+    };
+
+    // Write post form
+    document.getElementById('writePostForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const title = document.getElementById('postTitle').value;
+        const category = document.getElementById('postCategory').value;
+        const content = document.getElementById('postContent').value;
+        const author = document.getElementById('postAuthor').value;
+        blogPosts.unshift({
+            id: Date.now(),
+            title,
+            category,
+            author,
+            date: new Date().toISOString().slice(0,10),
+            content,
+            image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80",
+            comments: [],
+            likes: 0,
+            views: 0
+        });
+        document.getElementById('writeModal').style.display = 'none';
+        this.reset();
+        filterBlog();
+    });
+
+    // Read modal
+    function openReadModal(id) {
+        const post = blogPosts.find(p => p.id === id);
+        post.views++;
+        const modal = document.getElementById('readModal');
+        const content = document.getElementById('readModalContent');
+        content.innerHTML = `
+            <span class="close-modal" id="closeReadModal">&times;</span>
+            <img src="${post.image}" alt="${post.title}" class="modal-img">
+            <div class="modal-meta">
+                <span class="category">${capitalize(post.category)}</span>
+                <span class="date">${formatDate(post.date)}</span>
+                <span class="author"><i class="fas fa-user"></i> ${post.author}</span>
+            </div>
+            <h2>${post.title}</h2>
+            <p>${post.content}</p>
+            <div class="modal-interact">
+                <span class="likes" data-id="${post.id}"><i class="fas fa-heart"></i> ${post.likes}</span>
+                <span class="views"><i class="fas fa-eye"></i> ${post.views}</span>
+            </div>
+            <div class="comments-section">
+                <h3>Comments (${post.comments.length})</h3>
+                <div class="comments-list">
+                    ${post.comments.map(c => `<div class="comment"><b>${c.author}:</b> ${c.text}</div>`).join('')}
+                </div>
+                <form class="comment-form" id="commentForm">
+                    <input type="text" id="commentAuthor" placeholder="Your Name" required>
+                    <textarea id="commentText" placeholder="Write a comment..." required></textarea>
+                    <button type="submit">Post Comment</button>
+                </form>
+            </div>
+        `;
+        modal.style.display = 'flex';
+        document.getElementById('closeReadModal').onclick = function() {
+            modal.style.display = 'none';
+        };
+        document.getElementById('commentForm').onsubmit = function(e) {
+            e.preventDefault();
+            const author = document.getElementById('commentAuthor').value;
+            const text = document.getElementById('commentText').value;
+            post.comments.push({author, text});
+            openReadModal(id); // re-render modal
+        };
+    }
+
+    // Initial render
+    filterBlog();
+    </script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spin for a Discount! | Crown Watch</title>
+    <!-- Importing the same font as your other pages -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <style>
+        /*===============================================*/
+        /* CORE STYLES (Adapted from your existing CSS)  */
+        /*===============================================*/
+        body {
+            margin: 0;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: #f8fafc;
+            color: #222;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent scrollbars from fly-away animation */
+        }
+
+        .sticky-navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .navbar .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5em 2em;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo a {
+            font-size: 2em;
+            font-weight: 700;
+            color: #222;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+
+        .nav-links ul {
+            display: flex;
+            gap: 2em;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links ul li a {
+            color: #222;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5em 0.8em;
+            border-radius: 4px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .nav-links ul li a.active,
+        .nav-links ul li a:hover {
+            background: #222;
+            color: #fff;
+        }
+
+        .hamburger { display: none; }
+
+        @media (max-width: 900px) {
+            .nav-links ul { display: none; }
+            .hamburger { display: inline-block; background: none; border: none; font-size: 2rem; cursor: pointer; }
+        }
+
+        main {
+            flex-grow: 1;
+        }
+
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 2em 1em 1em 1em;
+            margin-top: 3em;
+        }
+
+        .footer-bottom-content {
+            text-align: center;
+            margin-top: 2em;
+            color: #bbb;
+            font-size: 0.95em;
+        }
+
+        /*=======================================*/
+        /* DISCOUNT PAGE SPECIFIC STYLES         */
+        /*=======================================*/
+        .discount-main {
+            max-width: 900px;
+            margin: 3em auto 2em auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 2em;
+            text-align: center;
+        }
+
+        .discount-hero h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #001f3f;
+            margin-bottom: 0.3em;
+        }
+
+        .discount-hero p {
+            font-size: 1.2em;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto 2.5em auto;
+            line-height: 1.6;
+        }
+        
+        .discount-clock-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2.5em;
+        }
+
+        .discount-watch-face {
+            width: 300px;
+            height: 300px;
+            background: #f8fafc;
+            border: 8px solid #001f3f;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 10px 35px rgba(0, 31, 63, 0.15), inset 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .discount-watch-center {
+            width: 18px;
+            height: 18px;
+            background: #d4af37;
+            border: 3px solid #222;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        /* Common style for all hands */
+        .hand {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px 4px 0 0;
+            z-index: 9;
+            transition: transform 0.5s cubic-bezier(0.4, 2.3, 0.6, 1); /* For smooth real-time movement */
+        }
+        
+        #hour-hand {
+            width: 8px;
+            height: 80px;
+            background: #222;
+        }
+        #minute-hand {
+            width: 6px;
+            height: 110px;
+            background: #555;
+        }
+        #second-hand {
+            width: 3px;
+            height: 130px;
+            background: #f44336;
+        }
+
+        /* Animation for the fast spin */
+        .spin-mode .hand {
+            transition: transform 2s ease-in-out;
+        }
+
+        /* Animation for hands flying away */
+        @keyframes fly-away {
+            0% {
+                transform: translate(-50%, -100%) rotate(var(--start-angle)) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--fly-x), var(--fly-y)) rotate(720deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        /* CHANGE: Slowed down fly-away animation from 1.5s to 2.5s */
+        .fly-mode#hour-hand, .fly-mode#minute-hand {
+            animation: fly-away 2.5s forwards ease-in;
+        }
+
+        /* Winning hand animation */
+        /* CHANGE: Slowed down winner spin from 5s to 8s */
+        .winner-spin {
+            transition: transform 8s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        
+        .clock-number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #001f3f;
+            padding-top: 10px;
+        }
+        
+        .clock-number:nth-child(1) { transform: rotate(30deg); }
+        .clock-number:nth-child(2) { transform: rotate(60deg); }
+        .clock-number:nth-child(3) { transform: rotate(90deg); }
+        .clock-number:nth-child(4) { transform: rotate(120deg); }
+        .clock-number:nth-child(5) { transform: rotate(150deg); }
+        .clock-number:nth-child(6) { transform: rotate(180deg); }
+        .clock-number:nth-child(7) { transform: rotate(210deg); }
+        .clock-number:nth-child(8) { transform: rotate(240deg); }
+        .clock-number:nth-child(9) { transform: rotate(270deg); }
+        .clock-number:nth-child(10) { transform: rotate(300deg); }
+        .clock-number:nth-child(11) { transform: rotate(330deg); }
+        .clock-number:nth-child(12) { transform: rotate(360deg); }
+
+        .clock-number span { display: inline-block; }
+        .clock-number:nth-child(1) span { transform: rotate(-30deg); }
+        .clock-number:nth-child(2) span { transform: rotate(-60deg); }
+        .clock-number:nth-child(3) span { transform: rotate(-90deg); }
+        .clock-number:nth-child(4) span { transform: rotate(-120deg); }
+        .clock-number:nth-child(5) span { transform: rotate(-150deg); }
+        .clock-number:nth-child(6) span { transform: rotate(-180deg); }
+        .clock-number:nth-child(7) span { transform: rotate(-210deg); }
+        .clock-number:nth-child(8) span { transform: rotate(-240deg); }
+        .clock-number:nth-child(9) span { transform: rotate(-270deg); }
+        .clock-number:nth-child(10) span { transform: rotate(-300deg); }
+        .clock-number:nth-child(11) span { transform: rotate(-330deg); }
+        .clock-number:nth-child(12) span { transform: rotate(-360deg); }
+
+        #discountBtn {
+            background-color: #203aad;
+            color: white;
+            padding: 1em 2.5em;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        #discountBtn:hover {
+            background-color: #51209f;
+            transform: scale(1.05);
+        }
+
+        #discountBtn:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
+        #resultDisplay {
+            margin-top: 1.5em;
+            min-height: 80px;
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #27ae60;
+            transition: opacity 0.5s;
+        }
+
+        .coupon-code {
+            display: block;
+            margin-top: 0.5em;
+            font-size: 0.8em;
+            color: #333;
+            background: #f0f0f0;
+            border: 2px dashed #d4af37;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+    </style>
+
+    
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="discount.html" class="active">Discount</a></li> 
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="discount-main">
+        <section class="discount-hero">
+            <h1>Your Time for a Discount!</h1>
+            <p>This clock shows the real time. When you're ready, press the button to start the discount game. Two hands will fly away, and the one that remains will point to your prize!</p>
+        </section>
+
+        <section class="discount-clock-container">
+            <div class="discount-watch-face">
+                <div class="clock-number"><span>1</span></div>
+                <div class="clock-number"><span>2</span></div>
+                <div class="clock-number"><span>3</span></div>
+                <div class="clock-number"><span>4</span></div>
+                <div class="clock-number"><span>5</span></div>
+                <div class="clock-number"><span>6</span></div>
+                <div class="clock-number"><span>7</span></div>
+                <div class="clock-number"><span>8</span></div>
+                <div class="clock-number"><span>9</span></div>
+                <div class="clock-number"><span>10</span></div>
+                <div class="clock-number"><span>11</span></div>
+                <div class="clock-number"><span>12</span></div>
+
+                <!-- The three hands of the clock -->
+                <div class="hand" id="hour-hand"></div>
+                <div class="hand" id="minute-hand"></div>
+                <div class="hand" id="second-hand"></div>
+                
+                <div class="discount-watch-center"></div>
+            </div>
+        </section>
+
+        <section class="discount-controls">
+            <button id="discountBtn">Get My Discount!</button>
+            <div id="resultDisplay"></div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom-content">
+            © 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // === Element References ===
+    const hourHand = document.getElementById('hour-hand');
+    const minuteHand = document.getElementById('minute-hand');
+    const secondHand = document.getElementById('second-hand');
+    const discountBtn = document.getElementById('discountBtn');
+    const resultDisplay = document.getElementById('resultDisplay');
+
+    let clockInterval; // To hold the interval for the real-time clock
+
+    // === Real-Time Clock Functionality ===
+    function setClock() {
+        const now = new Date();
+
+        const seconds = now.getSeconds();
+        // The +90 is an offset because CSS transform rotate starts from the 3 o'clock position (horizontal right)
+        const secondsDegrees = ((seconds / 60) * 360) + 90; 
+        secondHand.style.transform = `translate(-50%, -100%) rotate(${secondsDegrees}deg)`;
+
+        const minutes = now.getMinutes();
+        const minutesDegrees = ((minutes / 60) * 360) + ((seconds/60)*6) + 90;
+        minuteHand.style.transform = `translate(-50%, -100%) rotate(${minutesDegrees}deg)`;
+
+        const hours = now.getHours();
+        const hoursDegrees = ((hours / 12) * 360) + ((minutes/60)*30) + 90;
+        hourHand.style.transform = `translate(-50%, -100%) rotate(${hoursDegrees}deg)`;
+    }
+
+    // Start the real-time clock when the page loads
+    clockInterval = setInterval(setClock, 1000);
+    setClock(); // Initial call to set hands without delay
+
+    // === Discount Game Functionality ===
+    discountBtn.addEventListener('click', () => {
+        // 1. Stop the real-time clock and disable the button
+        clearInterval(clockInterval);
+        discountBtn.disabled = true;
+        resultDisplay.innerHTML = '';
+
+        // 2. Prepare for animations
+        // Get current rotation to use as a starting point for animations
+        const hourAngle = getCurrentRotation(hourHand);
+        const minuteAngle = getCurrentRotation(minuteHand);
+        
+        // Set CSS variables for the fly-away animation
+        hourHand.style.setProperty('--start-angle', `${hourAngle}deg`);
+        minuteHand.style.setProperty('--start-angle', `${minuteAngle}deg`);
+        
+        // Randomize the direction the hands fly off to
+        hourHand.style.setProperty('--fly-x', `${Math.random() * 2000 - 1000}px`);
+        hourHand.style.setProperty('--fly-y', `${Math.random() * 2000 - 1000}px`);
+        minuteHand.style.setProperty('--fly-x', `${Math.random() * 2000 - 1000}px`);
+        minuteHand.style.setProperty('--fly-y', `${Math.random() * 2000 - 1000}px`);
+
+        // 3. Trigger the initial fast spin and fly-away animations
+        hourHand.classList.add('spin-mode');
+        minuteHand.classList.add('spin-mode');
+        secondHand.classList.add('spin-mode');
+
+        // Give a brief moment for the spin to start before the hands fly away
+        setTimeout(() => {
+            hourHand.classList.add('fly-mode');
+            minuteHand.classList.add('fly-mode');
+        }, 200);
+
+        // 4. Determine the winning number and calculate the final angle
+        const winningNumber = Math.floor(Math.random() * 12) + 1;
+        
+        // **FIX:** The angle calculation is now correct. 
+        // 12 o'clock is at the top (360deg), 3 is at 90deg, etc. No offset needed here.
+        const targetAngle = winningNumber * 30;
+        const finalAngle = 3600 + targetAngle; // Add 10 full rotations for a dramatic spin
+
+        // 5. After the initial chaos, spin the winning hand to the result
+        // **CHANGE:** Slowed down timeout to match new animation speed
+        setTimeout(() => {
+            secondHand.classList.add('winner-spin');
+            secondHand.style.transform = `translate(-50%, -100%) rotate(${finalAngle}deg)`;
+            
+            // Listen for the final spin to end
+            secondHand.addEventListener('transitionend', () => {
+                resultDisplay.innerHTML = `Congratulations! You've won a <strong>${winningNumber}%</strong> discount!
+                    <span class="coupon-code">Use code: CROWN${winningNumber}</span>`;
+                discountBtn.textContent = 'Enjoy Your Discount!';
+            }, { once: true });
+
+        }, 2500); // Wait 2.5s for the fly-away animation to play out
+    });
+
+    // Helper function to get the current rotation angle of a hand
+    function getCurrentRotation(element) {
+        const st = window.getComputedStyle(element, null);
+        const tr = st.getPropertyValue("-webkit-transform") ||
+                   st.getPropertyValue("-moz-transform") ||
+                   st.getPropertyValue("-ms-transform") ||
+                   st.getPropertyValue("-o-transform") ||
+                   st.getPropertyValue("transform");
+        if (tr === 'none') return 0;
+        // This is a robust way to extract the angle from the transform matrix
+        const values = tr.split('(')[1].split(')')[0].split(',');
+        const a = values[0];
+        const b = values[1];
+        const angle = Math.round(Math.atan2(b, a) * (180/Math.PI));
+        return (angle < 0) ? angle + 360 : angle; // Ensure angle is always positive
+    }
+    </script>
+</body>
+</html>
+ 

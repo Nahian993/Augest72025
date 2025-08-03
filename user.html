@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login & Register | Crown Watch</title>
+    <link rel="stylesheet" href="user.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body> 
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="user-main">
+        <div class="user-tabs">
+            <button id="loginTab" class="tab-btn active">Login</button>
+            <button id="registerTab" class="tab-btn">Register</button>
+        </div>
+        <div class="user-forms">
+            <!-- Login Form -->
+            <form id="loginForm" class="user-form active">
+                <h2>Login to Your Account</h2>
+                <div class="input-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="input-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div class="input-group remember-row">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
+                <button type="submit" class="user-btn">Login</button>
+                <div class="form-links">
+                    <a href="#" id="forgotPassword">Forgot password?</a>
+                </div>
+                <div class="social-login">
+                    <span>Or login with:</span>
+                    <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                    <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                </div>
+            </form>
+            <!-- Register Form -->
+            <form id="registerForm" class="user-form">
+                <h2>Create Your Account</h2>
+                <div class="input-group">
+                    <label for="registerName">Full Name</label>
+                    <input type="text" id="registerName" required>
+                </div>
+                <div class="input-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="input-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <div class="input-group">
+                    <label for="registerConfirm">Confirm Password</label>
+                    <input type="password" id="registerConfirm" required>
+                </div>
+                <div class="input-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms & Privacy Policy</a></label>
+                </div>
+                <button type="submit" class="user-btn">Register</button>
+                <div class="social-login">
+                    <span>Or register with:</span>
+                    <button type="button" class="social-btn google"><i class="fab fa-google"></i></button>
+                    <button type="button" class="social-btn facebook"><i class="fab fa-facebook-f"></i></button>
+                </div>
+            </form>
+        </div>
+        <!-- Password Reset Modal -->
+        <div class="modal" id="resetModal">
+            <div class="modal-content">
+                <span class="close-modal" id="closeResetModal">&times;</span>
+                <h2>Reset Password</h2>
+                <form id="resetForm">
+                    <label for="resetEmail">Enter your email address:</label>
+                    <input type="email" id="resetEmail" required>
+                    <button type="submit">Send Reset Link</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Tab switching
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    loginTab.onclick = function() {
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
+    };
+    registerTab.onclick = function() {
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+        registerForm.classList.add('active');
+        loginForm.classList.remove('active');
+    };
+
+    // Password reset modal
+    document.getElementById('forgotPassword').onclick = function(e) {
+        e.preventDefault();
+        document.getElementById('resetModal').style.display = 'flex';
+    };
+    document.getElementById('closeResetModal').onclick = function() {
+        document.getElementById('resetModal').style.display = 'none';
+    };
+    window.onclick = function(event) {
+        if (event.target === document.getElementById('resetModal')) {
+            document.getElementById('resetModal').style.display = 'none';
+        }
+    };
+
+    // Login form demo validation
+    loginForm.onsubmit = function(e) {
+        e.preventDefault();
+        alert('Login successful! (Demo only)');
+        loginForm.reset();
+    };
+
+    // Register form demo validation
+    registerForm.onsubmit = function(e) {
+        e.preventDefault();
+        const pass = document.getElementById('registerPassword').value;
+        const conf = document.getElementById('registerConfirm').value;
+        if (pass !== conf) {
+            alert('Passwords do not match!');
+            return;
+        }
+        alert('Registration successful! (Demo only)');
+        registerForm.reset();
+    };
+
+    // Social login/register demo
+    document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.onclick = function() {
+            alert('Social login/register is a demo only.');
+        };
+    });
+    </script>
+</body>
+</html>

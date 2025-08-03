@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Crown Watch</title>
+    <link rel="stylesheet" href="faq.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="faq.html" class="active">FAQ</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="faq-main">
+        <section class="faq-hero">
+            <div class="faq-hero-watch">
+                <div class="faq-watch-face">
+                    <div class="faq-watch-center"></div>
+                    <div class="faq-watch-hour" id="faqHour"></div>
+                    <div class="faq-watch-minute" id="faqMinute"></div>
+                    <div class="faq-watch-second" id="faqSecond"></div>
+                    <span class="faq-watch-q">Q</span>
+                    <span class="faq-watch-a">A</span>
+                </div>
+                <div class="faq-watch-shadow"></div>
+            </div>
+            <h1>Frequently Asked Questions</h1>
+            <p>Tick-tock! Unlock the secrets of time, watches, and Crown Watch.<br>
+            <span class="faq-hero-tip" id="faqHeroTip"></span>
+            </p>
+        </section>
+        <section class="faq-search">
+            <input type="text" id="faqSearch" placeholder="🔍 Search for a question, e.g. 'waterproof'...">
+        </section>
+        <section class="faq-list" id="faqList">
+            <!-- FAQ items will be injected here -->
+        </section>
+        <section class="faq-fun">
+            <div class="faq-fun-title">
+                <i class="fas fa-lightbulb"></i> Did you know?
+            </div>
+            <div class="faq-fun-fact" id="faqFunFact"></div>
+            <button class="faq-fun-btn" id="faqFunBtn"><i class="fas fa-random"></i> New Fact</button>
+        </section>
+        <section class="faq-ask">
+            <h2>Still have a question?</h2>
+            <form id="askForm">
+                <input type="text" id="askName" placeholder="Your Name" required>
+                <input type="email" id="askEmail" placeholder="Your Email" required>
+                <textarea id="askQuestion" rows="3" placeholder="Type your question..." required></textarea>
+                <button type="submit" class="faq-btn"><i class="fas fa-paper-plane"></i> Ask Now</button>
+                <span id="askStatus"></span>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // Animated FAQ watch
+    function updateFaqWatch() {
+        const now = new Date();
+        const sec = now.getSeconds();
+        const min = now.getMinutes();
+        const hour = now.getHours() % 12;
+        document.getElementById('faqSecond').style.transform = `rotate(${sec * 6}deg)`;
+        document.getElementById('faqMinute').style.transform = `rotate(${min * 6}deg)`;
+        document.getElementById('faqHour').style.transform = `rotate(${hour * 30 + min * 0.5}deg)`;
+    }
+    setInterval(updateFaqWatch, 1000);
+    updateFaqWatch();
+
+    // Fun tips for hero
+    const heroTips = [
+        "A mechanical watch can have over 200 tiny parts working in harmony.",
+        "The world’s most complicated watch has 57 functions!",
+        "Watches can be powered by sunlight, movement, or even your body heat.",
+        "The first waterproof wristwatch was made in 1926.",
+        "Some watches are accurate to within a billionth of a second.",
+        "Wearing a watch on your left wrist? You’re in the majority!",
+        "The word 'watch' comes from the Old English 'woecce', meaning 'to be awake'.",
+        "James Bond’s favorite watch brand? Omega.",
+        "The most expensive watch ever sold: $31 million.",
+        "Watches have traveled to the moon and the bottom of the ocean."
+    ];
+    document.getElementById('faqHeroTip').textContent = heroTips[Math.floor(Math.random() * heroTips.length)];
+
+    // Fun facts for the fun section
+    const funFacts = [
+        "The smallest mechanical watch movement is smaller than a coin.",
+        "Some watches are made from meteorite rock!",
+        "The world’s thinnest mechanical watch is just 2mm thick.",
+        "Rolex watches are pressure-tested in water tanks before leaving the factory.",
+        "The second hand on a quartz watch 'ticks', but on a mechanical watch it 'sweeps'.",
+        "The first digital watch was released in 1972.",
+        "Some watches glow in the dark thanks to tritium or Super-LumiNova.",
+        "The oldest known wristwatch was made in 1810 for the Queen of Naples.",
+        "A tourbillon is a spinning cage that helps a watch keep better time.",
+        "Watches can be made from gold, platinum, ceramic, carbon fiber, and even wood!"
+    ];
+    function setFunFact() {
+        document.getElementById('faqFunFact').textContent = funFacts[Math.floor(Math.random() * funFacts.length)];
+    }
+    setFunFact();
+    document.getElementById('faqFunBtn').onclick = setFunFact;
+
+    // FAQ data (with icons, emojis, and fun)
+    const faqs = [
+        {
+            q: "🕵️‍♂️ How do I know if a watch is authentic?",
+            a: "<b>All our watches are 100% authentic</b>, sourced from trusted partners and verified by certified watchmakers. We provide authenticity certificates with every purchase. <span class='faq-badge'>Genuine Guarantee</span>"
+        },
+        {
+            q: "⚙️ What’s the difference between automatic, mechanical, and quartz watches?",
+            a: "Automatic and mechanical watches are powered by springs and gears, while quartz watches use a battery and a quartz crystal for timekeeping. <span class='faq-badge'>Fun Fact:</span> Automatics wind themselves as you wear them!"
+        },
+        {
+            q: "🔧 How often should I service my watch?",
+            a: "We recommend servicing mechanical watches every <b>3-5 years</b> to keep them running smoothly. Quartz watches may need less frequent servicing. <span class='faq-badge'>Pro Tip</span>"
+        },
+        {
+            q: "🛡️ Are your watches covered by a warranty?",
+            a: "Yes! Every watch comes with a <b>5-year international warranty</b> covering manufacturing defects. <span class='faq-badge badge-green'>Peace of Mind</span>"
+        },
+        {
+            q: "💧 Can I swim or shower with my watch?",
+            a: "Check your watch’s <b>water resistance rating</b>. Many are splash-proof, but only some are suitable for swimming or diving. <span class='faq-badge badge-blue'>Ask Us!</span>"
+        },
+        {
+            q: "🔗 How do I adjust my watch bracelet or strap?",
+            a: "We offer <b>free resizing</b> for all watches purchased from us. Visit our store or contact support for guidance. <span class='faq-badge badge-gold'>VIP Service</span>"
+        },
+        {
+            q: "♻️ Do you buy or trade pre-owned watches?",
+            a: "Yes, we buy and accept trade-ins of select luxury watches. <span class='faq-badge badge-purple'>Upgrade Time</span> Contact us for a quote!"
+        },
+        {
+            q: "🧼 How do I care for my watch?",
+            a: "Keep your watch clean and dry, avoid magnets, and store it in a safe place. For more tips, see our <a href='#' class='faq-link'>Watch Care Guide</a>."
+        },
+        {
+            q: "🔄 Can I return or exchange my watch?",
+            a: "Absolutely. We offer a <b>14-day return and exchange policy</b>. See our <a href='#' class='faq-link'>Returns page</a> for details."
+        },
+        {
+            q: "📦 How do I track my order?",
+            a: "Log in to your <a href='dashboard.html' class='faq-link'>account dashboard</a> to track your order, or use the tracking link sent to your email."
+        },
+        {
+            q: "🎁 Do you offer gift wrapping or personalized messages?",
+            a: "Yes! Select gift options at checkout to add wrapping and a custom message. <span class='faq-badge badge-pink'>Perfect Gift</span>"
+        },
+        {
+            q: "💳 What payment methods do you accept?",
+            a: "We accept all major credit/debit cards, PayPal, bank transfer, and select cryptocurrencies. <span class='faq-badge badge-blue'>Secure Checkout</span>"
+        },
+        {
+            q: "⏳ Can I reserve a watch that’s out of stock?",
+            a: "You can join our <b>waitlist</b> for out-of-stock models. We’ll notify you as soon as it’s available. <span class='faq-badge badge-gold'>First Dibs</span>"
+        },
+        {
+            q: "⏰ How do I set the time and date on my watch?",
+            a: "Each watch comes with a manual. If you need help, check our <a href='#' class='faq-link'>online guides</a> or contact support."
+        },
+        {
+            q: "🔋 Do you offer watch repair or battery replacement?",
+            a: "Yes, our certified watchmakers offer repairs, battery changes, and full servicing for most brands. <span class='faq-badge badge-green'>Expert Care</span>"
+        }
+    ];
+
+    // Render FAQ
+    function renderFaqList(filter = "") {
+        const faqList = document.getElementById('faqList');
+        faqList.innerHTML = "";
+        let filtered = faqs.filter(f => f.q.toLowerCase().includes(filter.toLowerCase()) || f.a.toLowerCase().includes(filter.toLowerCase()));
+        if (filtered.length === 0) {
+            faqList.innerHTML = `<div class="faq-item"><div class="faq-question"><i class="fas fa-question-circle"></i> No results found.</div></div>`;
+            return;
+        }
+        filtered.forEach((faq, idx) => {
+            const item = document.createElement('div');
+            item.className = "faq-item";
+            item.innerHTML = `
+                <div class="faq-question"><span class="faq-qicon">${faq.q.slice(0,2)}</span> ${faq.q.slice(2)} <span class="faq-toggle"><i class="fas fa-chevron-down"></i></span></div>
+                <div class="faq-answer">${faq.a}</div>
+            `;
+            item.querySelector('.faq-question').onclick = function() {
+                item.classList.toggle('open');
+                // Animate toggle icon
+                const icon = item.querySelector('.faq-toggle i');
+                icon.classList.toggle('rotated');
+            };
+            faqList.appendChild(item);
+        });
+    }
+    renderFaqList();
+
+    // FAQ search
+    document.getElementById('faqSearch').oninput = function() {
+        renderFaqList(this.value);
+    };
+
+    // Ask a question (demo)
+    document.getElementById('askForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('askStatus').textContent = "Thank you! We'll reply to your email soon. (Demo)";
+        setTimeout(() => {
+            document.getElementById('askStatus').textContent = "";
+        }, 4000);
+        this.reset();
+    };
+    </script>
+</body>
+</html>

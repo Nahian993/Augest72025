@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 Not Found | Crown Watch</title>
+    <link rel="stylesheet" href="404.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <div class="notfound-container">
+        <div class="watch-404">
+            <div class="watch-face">
+                <div class="watch-center"></div>
+                <div class="watch-hour" id="hourHand"></div>
+                <div class="watch-minute" id="minuteHand"></div>
+                <div class="watch-second" id="secondHand"></div>
+                <span class="watch-4 left">4</span>
+                <span class="watch-0">0</span>
+                <span class="watch-4 right">4</span>
+            </div>
+            <div class="watch-shadow"></div>
+        </div>
+        <h1 class="notfound-title">Oops! Page Not Found</h1>
+        <p class="notfound-desc">
+            Looks like you lost track of time.<br>
+            The page you’re looking for doesn’t exist.<br>
+            <span class="funny-tip" id="funnyTip"></span>
+        </p>
+        <button class="notfound-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-home"></i> Go Home
+        </button>
+        <button class="notfound-btn" onclick="window.location.reload()">
+            <i class="fas fa-redo"></i> Try Again
+        </button>
+        <div class="notfound-links">
+            <a href="shop.html"><i class="fas fa-shopping-bag"></i> Shop</a>
+            <a href="blog.html"><i class="fas fa-blog"></i> Blog</a>
+            <a href="about.html"><i class="fas fa-users"></i> About Us</a>
+        </div>
+    </div>
+    <script>
+    // Animated watch hands
+    function updateWatch() {
+        const now = new Date();
+        const sec = now.getSeconds();
+        const min = now.getMinutes();
+        const hour = now.getHours() % 12;
+        document.getElementById('secondHand').style.transform = `rotate(${sec * 6}deg)`;
+        document.getElementById('minuteHand').style.transform = `rotate(${min * 6}deg)`;
+        document.getElementById('hourHand').style.transform = `rotate(${hour * 30 + min * 0.5}deg)`;
+    }
+    setInterval(updateWatch, 1000);
+    updateWatch();
+
+    // Fun random tips/jokes
+    const tips = [
+        "Maybe your watch is set to the wrong timezone?",
+        "404: Time not found. Please synchronize your device.",
+        "You just discovered a secret watchmaker’s portal!",
+        "Even the best watches sometimes skip a second.",
+        "Tick-tock... but this page doesn’t exist!",
+        "Try winding your browser and check again.",
+        "Lost in time? Our shop can help you find your way.",
+        "This page is rarer than a diamond-studded Rolex.",
+        "You’re seconds away from finding what you need.",
+        "Don’t worry, even Swiss watches aren’t perfect!"
+    ];
+    document.getElementById('funnyTip').textContent = tips[Math.floor(Math.random() * tips.length)];
+    </script>
+</body>
+</html>

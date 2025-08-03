@@ -1,0 +1,476 @@
+body {
+    margin: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: #f8fafc;
+    color: #222;
+}
+
+.sticky-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.navbar .nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5em 2em;
+}
+
+.logo a {
+    font-size: 2em;
+    font-weight: 700;
+    color: #222;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
+
+.nav-links ul {
+    display: flex;
+    gap: 2em;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links ul li a {
+    color: #222;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5em 0.8em;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.nav-links ul li a.active,
+.nav-links ul li a:hover {
+    background: #222;
+    color: #fff;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    margin-left: 1em;
+}
+
+@media (max-width: 900px) {
+    .nav-links ul {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100vw;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .nav-links.nav-active ul {
+        display: flex;
+    }
+    .hamburger {
+        display: inline-block;
+    }
+}
+
+.blog-hero {
+    background: linear-gradient(120deg, #f8fafc 0%, #e0e7ef 100%);
+    text-align: center;
+    padding: 3em 1em 2em 1em;
+}
+
+.blog-hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.3em;
+    font-weight: 700;
+}
+
+.blog-hero p {
+    font-size: 1.2em;
+    color: #555;
+}
+
+#blogSearchForm {
+    margin-top: 1.5em;
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+#blogSearchForm input {
+    padding: 0.6em 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-size: 1em;
+    width: 260px;
+}
+
+#blogSearchForm button {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.6em 1.2em;
+    border-radius: 0 4px 4px 0;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#blogSearchForm button:hover {
+    background: #444;
+}
+
+.blog-filters {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
+    margin: 2em 0 1em 0;
+    flex-wrap: wrap;
+}
+
+.blog-filters select,
+.blog-filters button {
+    padding: 0.5em 1em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.blog-filters select:focus {
+    border: 1.5px solid #222;
+}
+
+.blog-filters button {
+    background: #222;
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+.blog-filters button:hover {
+    background: #444;
+}
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2em;
+    padding: 2em;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.blog-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.blog-card-content {
+    padding: 1.2em 1.2em 1em 1.2em;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.blog-meta {
+    display: flex;
+    gap: 1em;
+    font-size: 0.95em;
+    color: #888;
+    margin-bottom: 0.5em;
+}
+
+.blog-meta .category {
+    background: #e0e7ef;
+    color: #222;
+    padding: 0.2em 0.7em;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+.blog-card-content h2 {
+    margin: 0.5em 0 0.3em 0;
+    font-size: 1.3em;
+    font-weight: 700;
+}
+
+.blog-card-content p {
+    color: #444;
+    font-size: 1em;
+    margin-bottom: 1em;
+}
+
+.blog-card-footer {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.98em;
+}
+
+.blog-card-footer span {
+    color: #888;
+}
+
+.blog-card-footer .likes {
+    color: #f44336;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.blog-card-footer .likes:hover {
+    color: #b71c1c;
+}
+
+.blog-card-footer .read-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.4em 1em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: auto;
+    transition: background 0.2s;
+}
+
+.blog-card-footer .read-btn:hover {
+    background: #444;
+}
+
+.no-results {
+    text-align: center;
+    color: #888;
+    font-size: 1.2em;
+    grid-column: 1/-1;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+    margin-bottom: 2em;
+}
+
+.pag-btn {
+    background: #f0f0f0;
+    border: none;
+    padding: 0.5em 1.2em;
+    border-radius: 4px;
+    font-size: 1em;
+    cursor: pointer;
+    color: #222;
+    transition: background 0.2s;
+}
+
+.pag-btn.active, .pag-btn:hover {
+    background: #222;
+    color: #fff;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2em;
+    width: 95vw;
+    max-width: 540px;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #888;
+}
+
+.modal-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+
+.modal-meta {
+    display: flex;
+    gap: 1em;
+    font-size: 0.98em;
+    color: #888;
+    margin-bottom: 0.5em;
+}
+
+.modal-interact {
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+    margin: 1em 0;
+    font-size: 1.1em;
+}
+
+.comments-section {
+    margin-top: 2em;
+}
+
+.comments-section h3 {
+    margin-bottom: 0.7em;
+}
+
+.comments-list {
+    margin-bottom: 1em;
+}
+
+.comment {
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 0.6em 1em;
+    margin-bottom: 0.5em;
+    font-size: 1em;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7em;
+}
+
+.comment-form input, .comment-form textarea {
+    padding: 0.6em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    resize: vertical;
+}
+
+.comment-form button {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.7em 0;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.comment-form button:hover {
+    background: #444;
+}
+
+#writePostForm input, #writePostForm select, #writePostForm textarea {
+    width: 100%;
+    margin-bottom: 1em;
+    padding: 0.7em;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+#writePostForm button {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.7em 0;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#writePostForm button:hover {
+    background: #444;
+}
+
+.footer {
+    background: #222;
+    color: #fff;
+    padding: 2em 1em 1em 1em;
+    margin-top: 3em;
+}
+
+.footer-map-hours {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 2em 0;
+    flex-wrap: wrap;
+}
+
+.footer-map, .footer-hours {
+    background: #23272b;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    color: #fff;
+    min-width: 220px;
+}
+
+.footer-hours ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-hours li {
+    margin-bottom: 0.5em;
+    font-size: 1em;
+}
+
+.footer-bottom-content {
+    text-align: center;
+    margin-top: 2em;
+    color: #bbb;
+    font-size: 0.95em;
+}
+
+@media (max-width: 900px) {
+    .blog-grid {
+        padding: 1em;
+    }
+    .footer-map-hours {
+        flex-direction: column;
+        gap: 1em;
+        align-items: stretch;
+    }
+}

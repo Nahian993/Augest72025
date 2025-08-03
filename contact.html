@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Crown Watch</title>
+    <link rel="stylesheet" href="contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="contact-main">
+        <section class="contact-hero">
+            <h1>Contact Crown Watch</h1>
+            <p>We're here to help. Reach out to us anytime!</p>
+        </section>
+        <section class="contact-content">
+            <div class="contact-info">
+                <h2>Get in Touch</h2>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> 123 Main St, Dhaka, Bangladesh</li>
+                    <li><i class="fas fa-phone"></i> +880 1234 567890</li>
+                    <li><i class="fas fa-envelope"></i> support@crownwatch.com</li>
+                    <li><i class="fas fa-clock"></i> Mon-Fri: 10:00 AM - 8:00 PM</li>
+                </ul>
+                <div class="contact-social">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="contact-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                        width="100%" height="180" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="contact-form-area">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <input type="text" id="name" placeholder="Your Name" required>
+                        <input type="email" id="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-row">
+                        <input type="text" id="subject" placeholder="Subject" required>
+                        <select id="topic" required>
+                            <option value="">Select Topic</option>
+                            <option value="order">Order Inquiry</option>
+                            <option value="support">Support</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                    <div class="form-row">
+                        <label class="file-label">
+                            <i class="fas fa-paperclip"></i> Attach file
+                            <input type="file" id="attachment" style="display:none;">
+                        </label>
+                        <span id="fileName"></span>
+                    </div>
+                    <div class="form-row captcha-row">
+                        <span id="captchaQuestion"></span>
+                        <input type="text" id="captchaAnswer" placeholder="Answer" required>
+                    </div>
+                    <button type="submit" class="contact-btn">Send Message</button>
+                    <div id="formStatus"></div>
+                </form>
+            </div>
+        </section>
+        <section class="contact-faq">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question"><i class="fas fa-question-circle"></i> How can I track my order?</div>
+                    <div class="faq-answer">You can track your order from your account dashboard or by contacting our support team with your order number.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><i class="fas fa-question-circle"></i> Do you ship internationally?</div>
+                    <div class="faq-answer">Yes, we offer free worldwide shipping on all orders!</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><i class="fas fa-question-circle"></i> How do I request a return?</div>
+                    <div class="faq-answer">Contact us within 14 days of delivery and we’ll guide you through the return process.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question"><i class="fas fa-question-circle"></i> Can I visit your store in person?</div>
+                    <div class="faq-answer">Yes! Visit us at our Dhaka showroom during business hours.</div>
+                </div>
+            </div>
+        </section>
+        <section class="contact-newsletter">
+            <h2>Subscribe to Our Newsletter</h2>
+            <form id="newsletterForm">
+                <input type="email" id="newsletterEmail" placeholder="Your Email" required>
+                <button type="submit"><i class="fas fa-paper-plane"></i> Subscribe</button>
+                <span id="newsletterStatus"></span>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-map-hours">
+            <div class="footer-map">
+                <h4>Find Us</h4>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902231727964!2d90.3915633154317!3d23.75090339462556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b894b5e1c6e7%3A0x7e1e3e8e8e8e8e8e!2sDhaka!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+                    width="250" height="150" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            <div class="footer-hours">
+                <h4>Business Hours</h4>
+                <ul>
+                    <li>Mon-Fri: 10:00 AM - 8:00 PM</li>
+                    <li>Sat: 11:00 AM - 6:00 PM</li>
+                    <li>Sun: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-content">
+            &copy; 2025 Crown Watch. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+    // Hamburger menu
+    document.getElementById('hamburgerBtn').onclick = function() {
+        document.getElementById('navLinks').classList.toggle('nav-active');
+    };
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.onclick = function() {
+            q.parentElement.classList.toggle('open');
+        };
+    });
+
+    // File attachment
+    document.querySelector('.file-label').onclick = function() {
+        document.getElementById('attachment').click();
+    };
+    document.getElementById('attachment').onchange = function() {
+        const file = this.files[0];
+        document.getElementById('fileName').textContent = file ? file.name : '';
+    };
+
+    // Simple captcha
+    let a = Math.floor(Math.random() * 10) + 1;
+    let b = Math.floor(Math.random() * 10) + 1;
+    document.getElementById('captchaQuestion').textContent = `What is ${a} + ${b}?`;
+
+    // Contact form
+    document.getElementById('contactForm').onsubmit = function(e) {
+        e.preventDefault();
+        const answer = document.getElementById('captchaAnswer').value;
+        if (parseInt(answer) !== a + b) {
+            document.getElementById('formStatus').textContent = "Captcha answer is incorrect!";
+            document.getElementById('formStatus').style.color = "#f44336";
+            return;
+        }
+        document.getElementById('formStatus').textContent = "Message sent! We'll get back to you soon. (Demo)";
+        document.getElementById('formStatus').style.color = "#27ae60";
+        this.reset();
+        document.getElementById('fileName').textContent = '';
+        a = Math.floor(Math.random() * 10) + 1;
+        b = Math.floor(Math.random() * 10) + 1;
+        document.getElementById('captchaQuestion').textContent = `What is ${a} + ${b}?`;
+    };
+
+    // Newsletter
+    document.getElementById('newsletterForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('newsletterStatus').textContent = "Subscribed! (Demo)";
+        setTimeout(() => {
+            document.getElementById('newsletterStatus').textContent = "";
+        }, 3000);
+        this.reset();
+    };
+    </script>
+</body>
+</html>

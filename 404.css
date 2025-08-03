@@ -1,0 +1,213 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(120deg, #e0e7ef 0%, #f8fafc 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notfound-container {
+    text-align: center;
+    padding: 3em 1em 2em 1em;
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+}
+
+.watch-404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2em;
+    position: relative;
+}
+
+.watch-face {
+    width: 200px;
+    height: 200px;
+    background: #fff;
+    border: 8px solid #222;
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    margin-bottom: 1em;
+    overflow: visible;
+}
+
+.watch-center {
+    width: 18px;
+    height: 18px;
+    background: #222;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 3;
+}
+
+.watch-hour, .watch-minute, .watch-second {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform-origin: bottom center;
+    background: #222;
+    border-radius: 4px;
+}
+
+.watch-hour {
+    width: 8px;
+    height: 50px;
+    background: #222;
+    z-index: 2;
+    transform: translate(-50%, -100%) rotate(0deg);
+    transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+}
+
+.watch-minute {
+    width: 5px;
+    height: 70px;
+    background: #0077ff;
+    z-index: 2;
+    transform: translate(-50%, -100%) rotate(0deg);
+    transition: transform 0.2s cubic-bezier(.4,2,.6,1);
+}
+
+.watch-second {
+    width: 2.5px;
+    height: 90px;
+    background: #f44336;
+    z-index: 1;
+    transform: translate(-50%, -100%) rotate(0deg);
+    transition: transform 0.1s cubic-bezier(.4,2,.6,1);
+}
+
+.watch-4, .watch-0 {
+    position: absolute;
+    font-size: 3.5em;
+    font-weight: 700;
+    color: #222;
+    opacity: 0.18;
+    user-select: none;
+    pointer-events: none;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.watch-4.left {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-10deg);
+}
+
+.watch-0 {
+    left: 50%;
+    top: 10px;
+    transform: translateX(-50%) rotate(8deg);
+}
+
+.watch-4.right {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%) rotate(10deg);
+}
+
+.watch-shadow {
+    width: 120px;
+    height: 30px;
+    background: radial-gradient(ellipse at center, #bbb 0%, #fff 80%);
+    border-radius: 50%;
+    opacity: 0.25;
+    margin: -30px auto 0 auto;
+    filter: blur(2px);
+}
+
+.notfound-title {
+    font-size: 2.3em;
+    font-weight: 700;
+    margin-bottom: 0.3em;
+    color: #222;
+    letter-spacing: 1px;
+}
+
+.notfound-desc {
+    font-size: 1.15em;
+    color: #444;
+    margin-bottom: 1.5em;
+    line-height: 1.6;
+}
+
+.funny-tip {
+    display: block;
+    color: #0077ff;
+    font-weight: 600;
+    margin-top: 0.7em;
+    font-size: 1.05em;
+    animation: fadeIn 1.2s;
+}
+
+.notfound-btn {
+    background: #222;
+    color: #fff;
+    border: none;
+    padding: 0.8em 2em;
+    border-radius: 4px;
+    font-size: 1.1em;
+    cursor: pointer;
+    margin: 0.5em 0.5em 1em 0.5em;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.notfound-btn:hover {
+    background: #0077ff;
+    transform: scale(1.05) rotate(-2deg);
+}
+
+.notfound-links {
+    margin-top: 1.5em;
+    display: flex;
+    gap: 1.2em;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.notfound-links a {
+    background: #f8fafc;
+    color: #222;
+    border-radius: 4px;
+    padding: 0.6em 1.3em;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    transition: background 0.2s, color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.notfound-links a:hover {
+    background: #0077ff;
+    color: #fff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    .watch-face {
+        width: 140px;
+        height: 140px;
+    }
+    .notfound-title {
+        font-size: 1.5em;
+    }
+    .notfound-container {
+        padding: 1em 0.2em;
+    }
+}
