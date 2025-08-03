@@ -1,0 +1,1 @@
+"""Blueprints for application routes."""
