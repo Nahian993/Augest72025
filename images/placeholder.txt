@@ -1,0 +1,2 @@
+# Placeholder image for Crown Watch products
+# This is a placeholder - in production, you would replace these with actual watch images

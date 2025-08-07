@@ -8,6 +8,9 @@
     
   <!-- Importing a modern font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <!-- API Integration -->
+  <script src="api.js"></script>
 
     
 </head>
@@ -87,56 +90,66 @@
 <section id="products">
     <h2>Our Products</h2>
     <div class="product-grid">
-        <div class="product">
-            <img src="../images/MTP-1375SG-9AV.png" alt="CasioUSA">
+        <div class="product" data-product-id="1">
+            <img src="/images/MTP-1375SG-9AV.png" alt="Casio Edifice">
             <h3>Casio Edifice</h3>
-            <button>View Product</button>
+            <p class="product-price">$299.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/MTP-1375D-7AF.png" alt="Casio vintage">
+        <div class="product" data-product-id="2">
+            <img src="/images/MTP-1375D-7AF.png" alt="Casio Vintage">
             <h3>Casio Vintage</h3>
-            <button>View Product</button>
+            <p class="product-price">$89.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/MTP-1375HRG-1AV_01.png" alt="Rado">
+        <div class="product" data-product-id="3">
+            <img src="/images/MTP-1375HRG-1AV_01.png" alt="Rado Ceramic Watch">
             <h3>Rado Ceramic Watch</h3>
-            <button>View Product</button>
+            <p class="product-price">$1299.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/casio edifice .png" alt="Citizen">
+        <div class="product" data-product-id="4">
+            <img src="/images/casio edifice .png" alt="Citizen TSUYOSA">
             <h3>Citizen TSUYOSA</h3>
-            <button>View Product</button>
+            <p class="product-price">$459.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
         <!-- Additional 6 products -->
-        <div class="product">
-            <img src="../images/image (8).png" alt="Seiko Presage">
+        <div class="product" data-product-id="5">
+            <img src="/images/image (8).png" alt="Seiko Presage">
             <h3>Seiko Presage</h3>
-            <button>View Product</button>
+            <p class="product-price">$299.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/image (9).png" alt="Omega Seamaster">
+        <div class="product" data-product-id="6">
+            <img src="/images/image (9).png" alt="Omega Seamaster">
             <h3>Omega Seamaster</h3>
-            <button>View Product</button>
+            <p class="product-price">$1999.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/image (10).png" alt="CasioUSA">
-            <h3>Casio Edifice</h3>
-            <button>View Product</button>
+        <div class="product" data-product-id="7">
+            <img src="/images/image (10).png" alt="Casio Edifice">
+            <h3>Casio Edifice Pro</h3>
+            <p class="product-price">$349.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/watch 2.png"alt="Casio vintage">
-            <h3>Casio Vintage</h3>
-            <button>View Product</button>
+        <div class="product" data-product-id="8">
+            <img src="/images/watch 2.png" alt="Casio Vintage Premium">
+            <h3>Casio Vintage Premium</h3>
+            <p class="product-price">$129.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/casio gold vintage 2 .png" alt="Rado">
-            <h3>Rado Ceramic Watch</h3>
-            <button>View Product</button>
+        <div class="product" data-product-id="9">
+            <img src="/images/casio gold vintage 2 .png" alt="Rado Gold">
+            <h3>Rado Gold Edition</h3>
+            <p class="product-price">$1599.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
-        <div class="product">
-            <img src="../images/Citizen TSUYOSA.png" alt="Citizen">
-            <h3>Citizen TSUYOSA</h3>
-            <button>View Product</button>
+        <div class="product" data-product-id="10">
+            <img src="/images/Citizen TSUYOSA.png" alt="Citizen Automatic">
+            <h3>Citizen Automatic</h3>
+            <p class="product-price">$499.99</p>
+            <button class="add-to-cart-button">Add to Cart</button>
         </div>
     </div>
 
