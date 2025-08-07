@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Crown Watch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script src="api.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <nav class="admin-sidebar">
+            <div class="admin-logo">
+                <h2>Crown Watch Admin</h2>
+            </div>
+            <ul class="admin-nav">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="#products" class="nav-link" data-section="products">
+                    <i class="fas fa-box"></i> Products
+                </a></li>
+                <li><a href="#orders" class="nav-link" data-section="orders">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </a></li>
+                <li><a href="#users" class="nav-link" data-section="users">
+                    <i class="fas fa-users"></i> Users
+                </a></li>
+                <li><a href="#newsletter" class="nav-link" data-section="newsletter">
+                    <i class="fas fa-envelope"></i> Newsletter
+                </a></li>
+                <li><a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i> Back to Site
+                </a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1 id="page-title">Dashboard</h1>
+                <div class="admin-user">
+                    <span>Admin User</span>
+                    <button onclick="crownAPI.logout()" class="logout-btn">Logout</button>
+                </div>
+            </header>
+
+            <div class="admin-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard-section" class="admin-section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <i class="fas fa-box"></i>
+                            <div class="stat-info">
+                                <h3 id="total-products">0</h3>
+                                <p>Total Products</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-shopping-cart"></i>
+                            <div class="stat-info">
+                                <h3 id="total-orders">0</h3>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-info">
+                                <h3 id="total-users">0</h3>
+                                <p>Total Users</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-dollar-sign"></i>
+                            <div class="stat-info">
+                                <h3 id="total-revenue">$0</h3>
+                                <p>Total Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Products Section -->
+                <section id="products-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Product Management</h2>
+                        <button class="btn btn-primary" onclick="showAddProductForm()">Add Product</button>
+                    </div>
+                    <div id="products-list" class="data-table">
+                        <div class="loading">Loading products...</div>
+                    </div>
+                </section>
+
+                <!-- Orders Section -->
+                <section id="orders-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Order Management</h2>
+                    </div>
+                    <div id="orders-list" class="data-table">
+                        <div class="loading">Loading orders...</div>
+                    </div>
+                </section>
+
+                <!-- Users Section -->
+                <section id="users-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>User Management</h2>
+                    </div>
+                    <div id="users-list" class="data-table">
+                        <div class="loading">Loading users...</div>
+                    </div>
+                </section>
+
+                <!-- Newsletter Section -->
+                <section id="newsletter-section" class="admin-section">
+                    <div class="section-header">
+                        <h2>Newsletter Subscribers</h2>
+                    </div>
+                    <div id="newsletter-list" class="data-table">
+                        <div class="loading">Loading subscribers...</div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div id="addProductModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addProductModal')">&times;</span>
+            <h2>Add New Product</h2>
+            <form id="addProductForm">
+                <input type="text" name="name" placeholder="Product Name" required>
+                <input type="text" name="brand" placeholder="Brand" required>
+                <textarea name="description" placeholder="Description" required></textarea>
+                <input type="number" name="price" placeholder="Price" step="0.01" required>
+                <input type="text" name="image_url" placeholder="Image URL" required>
+                <input type="text" name="category" placeholder="Category" required>
+                <input type="number" name="stock_quantity" placeholder="Stock Quantity" required>
+                <label>
+                    <input type="checkbox" name="is_featured"> Featured Product
+                </label>
+                <button type="submit" class="btn btn-primary">Add Product</button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-logo {
+            padding: 20px;
+            border-bottom: 1px solid #34495e;
+        }
+
+        .admin-logo h2 {
+            font-size: 18px;
+        }
+
+        .admin-nav {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .admin-nav li {
+            margin-bottom: 5px;
+        }
+
+        .admin-nav a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .admin-nav a:hover,
+        .admin-nav a.active {
+            background: #34495e;
+            color: white;
+        }
+
+        .admin-nav i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .admin-main {
+            margin-left: 250px;
+            flex: 1;
+        }
+
+        .admin-header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-content {
+            padding: 30px;
+            background: #f8f9fa;
+            min-height: calc(100vh - 80px);
+        }
+
+        .admin-section {
+            display: none;
+        }
+
+        .admin-section.active {
+            display: block;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-card i {
+            font-size: 40px;
+            color: #3498db;
+            margin-right: 20px;
+        }
+
+        .stat-info h3 {
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .stat-info p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .data-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .modal form input,
+        .modal form textarea,
+        .modal form select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .modal form textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .modal form label {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .modal form label input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .admin-main {
+                margin-left: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if user is logged in (basic check - in real app you'd verify admin role)
+            if (!crownAPI.isLoggedIn()) {
+                alert('Please login to access admin dashboard');
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Initialize admin dashboard
+            initAdmin();
+        });
+
+        function initAdmin() {
+            // Load dashboard stats
+            loadDashboardStats();
+
+            // Set up navigation
+            document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = e.target.closest('.nav-link').dataset.section;
+                    showSection(section);
+                });
+            });
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.add('active');
+
+            // Update navigation
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            document.querySelector(`[data-section="${sectionName}"]`).classList.add('active');
+
+            // Update page title
+            document.getElementById('page-title').textContent = 
+                sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+
+            // Load section data
+            switch(sectionName) {
+                case 'products':
+                    loadProducts();
+                    break;
+                case 'orders':
+                    loadOrders();
+                    break;
+                case 'users':
+                    loadUsers();
+                    break;
+                case 'newsletter':
+                    loadNewsletter();
+                    break;
+            }
+        }
+
+        async function loadDashboardStats() {
+            try {
+                // In a real app, you'd have admin-specific API endpoints
+                // For now, we'll simulate some stats
+                document.getElementById('total-products').textContent = '4';
+                document.getElementById('total-orders').textContent = '0';
+                document.getElementById('total-users').textContent = '1';
+                document.getElementById('total-revenue').textContent = '$0.00';
+            } catch (error) {
+                console.error('Failed to load dashboard stats:', error);
+            }
+        }
+
+        async function loadProducts() {
+            try {
+                const products = await crownAPI.getProducts();
+                displayProductsTable(products);
+            } catch (error) {
+                console.error('Failed to load products:', error);
+                document.getElementById('products-list').innerHTML = 
+                    '<div class="loading">Failed to load products</div>';
+            }
+        }
+
+        function displayProductsTable(products) {
+            const container = document.getElementById('products-list');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<div class="loading">No products found</div>';
+                return;
+            }
+
+            const tableHTML = `
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Featured</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${products.map(product => `
+                            <tr>
+                                <td>${product.id}</td>
+                                <td>${product.name}</td>
+                                <td>${product.brand}</td>
+                                <td>$${parseFloat(product.price).toFixed(2)}</td>
+                                <td>${product.stock_quantity}</td>
+                                <td>${product.is_featured ? 'Yes' : 'No'}</td>
+                                <td>
+                                    <button class="btn btn-primary" onclick="editProduct(${product.id})">Edit</button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHTML;
+        }
+
+        async function loadOrders() {
+            // Simulate empty orders for now
+            document.getElementById('orders-list').innerHTML = 
+                '<div class="loading">No orders found</div>';
+        }
+
+        async function loadUsers() {
+            // Simulate basic user data
+            document.getElementById('users-list').innerHTML = 
+                '<div class="loading">User management not implemented</div>';
+        }
+
+        async function loadNewsletter() {
+            // Simulate newsletter subscribers
+            document.getElementById('newsletter-list').innerHTML = 
+                '<div class="loading">Newsletter management not implemented</div>';
+        }
+
+        function showAddProductForm() {
+            document.getElementById('addProductModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function editProduct(productId) {
+            alert('Edit product functionality would be implemented here');
+        }
+
+        // Handle add product form submission
+        document.getElementById('addProductForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // In a real app, you'd send this data to the server
+            alert('Add product functionality would be implemented here');
+            closeModal('addProductModal');
+        });
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        };
+    </script>
+</body>
+</html>

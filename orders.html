@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Crown Watch</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+    <script src="api.js"></script>
+</head>
+<body>
+    <!-- Sticky Navbar -->
+    <header class="navbar sticky-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">☬𝓒𝓻𝓸𝔀𝓷 𝓦𝓪𝓽𝓬𝓱☬</a>
+            </div>
+            <nav class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="nav-icons">
+                <span class="phone">📞 +880 1715881701</span>
+                <a href="#" class="search-icon">🔍</a>
+                <a href="cart.html" class="cart-icon">🛒</a>
+                <a href="#" class="user-icon">👤</a>
+                <a href="#" class="contact-btn">Contact Us</a>
+            </div>
+            <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="orders-main">
+        <div class="container">
+            <h1>My Orders</h1>
+            <div id="ordersContainer">
+                <div class="loading">Loading your orders...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Us</h3>
+                <p>Crown Watch brings together centuries of watchmaking tradition with modern innovation.</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Crown Watch. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <style>
+        .orders-main {
+            min-height: 80vh;
+            padding: 100px 20px 50px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .orders-main h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .order-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-number {
+            font-weight: bold;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .order-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .order-status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .order-status.confirmed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .order-status.shipped {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .order-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .order-info strong {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .order-info span {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .no-orders {
+            text-align: center;
+            padding: 80px 20px;
+            color: #666;
+        }
+
+        .no-orders h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .shop-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .shop-link:hover {
+            background: #555;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .order-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .order-details {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check if user is logged in
+            if (!crownAPI.isLoggedIn()) {
+                document.getElementById('ordersContainer').innerHTML = `
+                    <div class="no-orders">
+                        <h2>Please Login</h2>
+                        <p>You need to be logged in to view your orders.</p>
+                        <button onclick="showAuthModal('login')" class="shop-link">Login</button>
+                    </div>
+                `;
+                return;
+            }
+
+            try {
+                const orders = await crownAPI.getOrders();
+                displayOrders(orders);
+            } catch (error) {
+                console.error('Failed to load orders:', error);
+                document.getElementById('ordersContainer').innerHTML = `
+                    <div class="no-orders">
+                        <h2>Error Loading Orders</h2>
+                        <p>Failed to load your orders. Please try again later.</p>
+                    </div>
+                `;
+            }
+        });
+
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersContainer');
+
+            if (orders.length === 0) {
+                container.innerHTML = `
+                    <div class="no-orders">
+                        <h2>No Orders Yet</h2>
+                        <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+                        <a href="shop.html" class="shop-link">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            const ordersHTML = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <div class="order-number">Order #${order.order_number}</div>
+                        <div class="order-status ${order.status}">${order.status}</div>
+                    </div>
+                    <div class="order-details">
+                        <div class="order-info">
+                            <strong>Order Date</strong>
+                            <span>${new Date(order.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <div class="order-info">
+                            <strong>Total Amount</strong>
+                            <span>$${parseFloat(order.total_amount).toFixed(2)}</span>
+                        </div>
+                        <div class="order-info">
+                            <strong>Payment Status</strong>
+                            <span>${order.payment_status}</span>
+                        </div>
+                        <div class="order-info">
+                            <strong>Shipping Address</strong>
+                            <span>${order.shipping_address || 'Not provided'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = ordersHTML;
+        }
+    </script>
+</body>
+</html>
